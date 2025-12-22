@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} - تعديل الإدارة{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'departments' %}">الجهات والإدارات</a></li>
+    <li class="breadcrumb-item active">تعديل الإدارة</li>
+{% endblock %}
+{% block content %}
+    <!-- Row start -->
+    <div class="row gutters justify-content-center">
+        <div class="col-xl-4 col-lg-4 col-md-5 col-sm-6 col-12">
+            {% include 'messages.html' %}
+            <form method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="card m-0">
+                    <div class="card-header">
+                        <div class="card-title">تعديل الإدارة</div>
+                        <div class="card-sub-title">{{ name }}</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row gutters">
+                            <label for="name" class="col-sm-3 col-form-label text-right">الاسم</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ name }}" placeholder="الاسم" required>
+                                    <div class="invalid-feedback">الاسم مطلوب</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary float-right">تعديل</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Row end -->
+{% endblock %}

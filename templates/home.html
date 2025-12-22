@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} - الرئيسية{% endblock %}
+
+{% block css %}
+    <!-- *************
+        ************ Vendor Css Files *************
+    ************ -->
+    <!-- DateRange css -->
+    <link rel="stylesheet" href="{% static 'site/vendor/daterange/daterange.css' %}" />
+
+    <!-- Chartist css -->
+    <link rel="stylesheet" href="{% static 'site/vendor/chartist/css/chartist.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'site/vendor/chartist/css/chartist-custom.css' %}" />
+{% endblock %}
+
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">الرئيسية</li>
+{% endblock %}
+{% block content %}
+    <!-- Row starts -->
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">احصائيات عامة</div>
+                </div>
+                <div class="card-body">
+
+                    <!-- Row starts -->
+                    <div class="row gutters">
+                        <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="ticket-status-card">
+                                <h6>المستخدمين</h6>
+                                <h3>5290</h3>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="ticket-status-card">
+                                <h6>العقود</h6>
+                                <h3>770</h3>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="ticket-status-card">
+                                <h6>المعاملات</h6>
+                                <h3>25</h3>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="ticket-status-card">
+                                <h6>اﻟﻣﻘﺎوﻟون واﻹﺳﺗﺷﺎرﯾون</h6>
+                                <h3>1800</h3>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="ticket-status-card">
+                                <h6>عقود قائمة</h6>
+                                <h3>450</h3>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="ticket-status-card">
+                                <h6>عقود منتهية</h6>
+                                <h3>275</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row ends -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Row ends -->
+
+    <!-- Row starts -->
+    <div class="row gutters">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <div class="card h-420">
+                <div class="card-header">
+                    <div class="card-title">التقارير</div>
+                </div>
+                <div class="card-body">
+                    <div class="chartist threshold-scheme">
+                        <div class="thresholdChart"></div>
+                    </div>
+                    <!-- Row starts -->
+                    <div class="row gutters">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                            <div class="overall-earnings">
+                                <div class="earnings-icon">
+                                    <i class="icon-archive"></i>
+                                </div>
+                                <div class="earnings-stats">
+                                    <p>جسور</p>
+                                    <h3>75,000</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                            <div class="overall-earnings">
+                                <div class="earnings-icon dark">
+                                    <i class="icon-thermometer"></i>
+                                </div>
+                                <div class="earnings-stats">
+                                    <p>انفاق</p>
+                                    <h3>95,000</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                            <div class="overall-earnings">
+                                <div class="earnings-icon secondary">
+                                    <i class="icon-document-landscape"></i>
+                                </div>
+                                <div class="earnings-stats">
+                                    <p>حدائق</p>
+                                    <h3>32,000</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row ends -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Row ends -->
+{% endblock %}
+
+{% block js %}
+    <!-- *************
+        ************ Vendor Js Files *************
+    ************* -->
+    <!-- Slimscroll JS -->
+    <script src="{% static 'site/vendor/slimscroll/slimscroll.min.js' %}"></script>
+    <script src="{% static 'site/vendor/slimscroll/custom-scrollbar.js' %}"></script>
+
+    <!-- Daterange -->
+    <script src="{% static 'site/vendor/daterange/daterange.js' %}"></script>
+    <script src="{% static 'site/vendor/daterange/custom-daterange.js' %}"></script>
+
+    <!-- Chartist JS -->
+    <script src="{% static 'site/vendor/chartist/js/chartist.min.js' %}"></script>
+    <script src="{% static 'site/vendor/chartist/js/chartist-tooltip.js' %}"></script>
+    <script src="{% static 'site/vendor/chartist/js/custom/bar/stack-bar-chart.js' %}"></script>
+    <script src="{% static 'site/vendor/chartist/js/custom/line/multiple-line-charts.js' %}"></script>
+    <script src="{% static 'site/vendor/chartist/js/custom/threshold/threshold.js' %}"></script>
+    <script src="{% static 'site/vendor/chartist/js/custom/bar/bar-chart-orders.js' %}"></script>
+
+    <!-- jVector Maps -->
+    <script src="{% static 'site/vendor/jvectormap/jquery-jvectormap-2.0.3.min.js' %}"></script>
+    <script src="{% static 'site/vendor/jvectormap/world-mill-en.js' %}"></script>
+    <script src="{% static 'site/vendor/jvectormap/gdp-data.js' %}"></script>
+    <script src="{% static 'site/vendor/jvectormap/custom/world-map-markers2.js' %}"></script>
+
+    <!-- Custom JVector Maps -->
+    <script src="{% static 'site/vendor/jvectormap/custom/world-map-markers.js' %}"></script>
+
+    <!-- Circliful js -->
+    <script src="{% static 'site/vendor/circliful/circliful.min.js' %}"></script>
+    <script src="{% static 'site/vendor/circliful/circliful.custom.js' %}"></script>
+
+    <!-- Rating JS -->
+    <script src="{% static 'site/vendor/rating/raty.js' %}"></script>
+    <script src="{% static 'site/vendor/rating/raty-custom.js' %}"></script>
+{% endblock %}

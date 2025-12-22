@@ -1,0 +1,533 @@
+{% load static %}
+{% load helper %}
+{% load nav_active %}
+<!doctype html>
+<html lang="ar">
+	
+<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Meta -->
+		<meta name="description" content="أمانة العاصمة المقدسة">
+		<meta name="author" content="أمانة العاصمة المقدسة">
+		<link rel="shortcut icon" href="{% static 'site/img/fav.png' %}" />
+
+		<!-- Title -->
+		<title>أمانة العاصمة المقدسة {% block title %}{% endblock %}</title>
+
+
+		<!-- *************
+			************ Common Css Files *************
+		************ -->
+		<!-- Bootstrap css -->
+		<link rel="stylesheet" href="{% static 'site/css/bootstrap.min.css' %}">
+
+		<!-- Icomoon Font Icons css -->
+		<link rel="stylesheet" href="{% static 'site/fonts/style.css' %}">
+
+		<!-- Main css -->
+		<link rel="stylesheet" href="{% static 'site/css/main.css' %}">
+
+        {% block css %}
+        {% endblock %}
+
+	</head>
+	<body>
+
+		<!-- Loading starts -->
+		<div id="loading-wrapper">
+			<div class="spinner-border" role="status">
+				<span class="sr-only">تحميل...</span>
+			</div>
+		</div>
+		<!-- Loading ends -->
+
+
+		<!-- *************
+			************ Header section start *************
+		************* -->
+
+		<!-- Header start -->
+		<header class="header">
+			<div class="logo-wrapper">
+				<a href="{% url 'home' %}" class="logo">
+					<img src="{% static 'site/img/logo.png' %}" alt="Tawtheeq Admin Dashboard" />
+				</a>
+				<a href="#" class="quick-links-btn" data-toggle="tooltip" data-placement="right" title="" data-original-title="روابط سريعة">
+					<i class="icon-menu1"></i>
+				</a>
+			</div>
+			<div class="header-items">
+				<!-- Custom search start -->
+				<div class="custom-search">
+					<input type="text" class="search-query" placeholder="إبحث هنا ....">
+					<i class="icon-search1"></i>
+				</div>
+				<!-- Custom search end -->
+
+				<!-- Header actions start -->
+				<ul class="header-actions">
+					<li class="dropdown">
+						<a href="#" id="notifications" data-toggle="dropdown" aria-haspopup="true">
+							<i class="icon-box"></i>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right lrg" aria-labelledby="notifications">
+							<div class="dropdown-menu-header">
+								المهام (5)
+							</div>	
+							<ul class="header-tasks">
+								<li>
+									<p>مراجعة العقود<span>90%</span></p>
+									<div class="progress">
+										<div class="progress-bar bg-primary" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%">
+											<span class="sr-only">90% مكتمل</span>
+										</div>
+									</div>
+								</li>
+								<li>
+									<p>مراجعة المقاولين<span>60%</span></p>
+									<div class="progress">
+										<div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+											<span class="sr-only">60% مكتمل</span>
+										</div>
+									</div>
+								</li>
+								<li>
+									<p>تقييم الاعمال<span>40%</span></p>
+									<div class="progress">
+										<div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+											<span class="sr-only">40% مكتمل</span>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="dropdown">
+						<a href="#" id="notifications" data-toggle="dropdown" aria-haspopup="true">
+							<i class="icon-bell"></i>
+							<span class="count-label">8</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right lrg" aria-labelledby="notifications">
+							<div class="dropdown-menu-header">
+								التنبيهات (40)
+							</div>
+							<ul class="header-notifications">
+								<li>
+									<a href="#">
+										<!-- <div class="user-img away"> -->
+											<!-- <img src="{% static 'site/img/user6.png' %}" alt="User" /> -->
+										<!-- </div> -->
+										<div class="details">
+											<div class="user-title">المرافق</div>
+											<div class="noti-details">تم اعتماد العقد رقم 26549455</div>
+											<div class="noti-date">07:30 pm</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<!-- <div class="user-img busy"> -->
+											<!-- <img src="{% static 'site/img/user6.png' %}" alt="User" /> -->
+										<!-- </div> -->
+										<div class="details">
+											<div class="user-title">الجسور</div>
+											<div class="noti-details">تم رفع التقرير بواسطة مكتب الابداع</div>
+											<div class="noti-date">12:00 am</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<!-- <div class="user-img online"> -->
+											<!-- <img src="{% static 'site/img/user6.png' %}" alt="User" /> -->
+										<!-- </div> -->
+										<div class="details">
+											<div class="user-title">الاصول</div>
+											<div class="noti-details">تم رفض المعاملة</div>
+											<div class="noti-date">04:00 pm</div>
+										</div>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="dropdown">
+						<a href="#" id="userSettings" class="user-settings" data-toggle="dropdown" aria-haspopup="true">
+							<span class="user-name">{{ request.user.name }}</span>
+							<span class="avatar">{{ request.user.name|initials }}</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userSettings">
+							<div class="header-profile-actions">
+								<div class="header-user-profile">
+									<div class="header-user">
+										<img src="{% static 'site/img/user6.png' %}" alt="Admin Template" />
+									</div>
+									<h5>{{ request.user.name }}</h5>
+									<p>{{ request.user.username }}</p>
+								</div>
+								<a href="user-profile.html"><i class="icon-user1"></i> الملف الشخصي</a>
+								<a href="account-settings.html"><i class="icon-settings1"></i> إعدادات الحساب</a>
+								<a href="{% url 'logout' %}"><i class="icon-log-out1"></i> تسجيل الخروج</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<a href="#" class="quick-settings-btn" data-toggle="tooltip" data-placement="left" title="" data-original-title="إعدادات سريعة">
+							<i class="icon-list"></i>
+						</a>
+					</li>
+				</ul>						
+				<!-- Header actions end -->
+			</div>
+		</header>
+		<!-- Header end -->
+
+		<!-- Screen overlay start -->
+		<div class="screen-overlay"></div>
+		<!-- Screen overlay end -->
+
+		<!-- Quicklinks box start -->
+		<div class="quick-links-box">
+			<div class="quick-links-header">
+				روابط سريعة
+				<a href="#" class="quick-links-box-close">
+					<i class="icon-circle-with-cross"></i>
+				</a>
+			</div>
+
+			<div class="quick-links-wrapper">
+				<div class="fullHeight">
+					<div class="quick-links-body">
+						<div class="container-fluid p-0">
+							<div class="row less-gutters">
+								<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+									<a href="documents.html" class="quick-tile blue">
+										<i class="icon-file-text"></i>
+										المستندات
+									</a>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="crm-dashboard.html" class="quick-tile secondary">
+										<i class="icon-pie-chart1"></i>
+										التقارير
+									</a>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="ecommerce-dashboard.html" class="quick-tile blue">
+										<i class="icon-shopping-cart1"></i>
+										المقاولين
+									</a>
+								</div>
+							</div>
+							<div class="row less-gutters">
+								<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+									<a href="gallery2.html" class="quick-tile photos lg">
+										الملفات
+									</a>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="tasks.html" class="quick-tile">
+										<i class="icon-check-circle"></i>
+										المهام
+									</a>
+									<a href="calendar-external-draggable.html" class="quick-tile blue">
+										<i class="icon-calendar1"></i>
+										الأحداث
+									</a>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="chat.html" class="quick-tile blue">
+										<i class="icon-message-circle"></i>
+										المراسلات
+									</a>
+									<a href="default-layout.html" class="quick-tile">
+										<i class="icon-grid"></i>
+										التخطيط
+									</a>
+								</div>
+							</div>
+							<div class="row less-gutters">
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="custom-alerts.html" class="quick-tile secondary">
+										<i class="icon-alert-triangle"></i>
+										التنبيهات
+									</a>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="google-maps.html" class="quick-tile blue">
+										<i class="icon-map-pin"></i>
+										الخرائط
+									</a>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="https://www.gmail.com/" target="_blank" class="quick-tile white">
+										<i class="icon-drafts"></i>
+										المراسلات
+									</a>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="https://www.youtube.com/" target="_blank" class="quick-tile secondary">
+										<i class="icon-youtube"></i>
+										الفيديوهات
+									</a>
+								</div>
+							</div>
+							<div class="row less-gutters">
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="user-profile.html" class="quick-tile">
+										<i class="icon-account_circle"></i>
+										الملف الشخصي
+									</a>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="contacts.html" class="quick-tile">
+										<i class="icon-phone"></i>
+										المكاتب الهندسية
+									</a>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="account-settings.html" class="quick-tile">
+										<i class="icon-settings1"></i>
+										الإعدادات
+									</a>
+								</div>
+								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+									<a href="{% url 'logout' %}" class="quick-tile">
+										<i class="icon-lock2"></i>
+										تسجيل الخروج
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Quicklinks box end -->
+
+		<!-- Quick settings start -->
+		<div class="quick-settings-box">
+			<div class="quick-settings-header">
+				<div class="date-container">اليوم <span class="date" id="today-date"></span></div>
+				<a href="#" class="quick-settings-box-close">
+					<i class="icon-circle-with-cross"></i>
+				</a>
+			</div>
+			<div class="quick-settings-body">
+				<div class="fullHeight">
+					<div class="quick-setting-list">
+						<h6 class="title">الأحداث</h6>
+						<ul class="list-items">
+							<li>
+								<div class="list-title">إطلاق المنتج</div>
+								<div class="list-location">10:00 AM</div>
+							</li>
+							<li>
+								<div class="list-title">اجتماع الفريق</div>
+								<div class="list-location">01:30 PM</div>
+							</li>
+							<li>
+								<div class="list-title">جلسة أسئلة وأجوبة</div>
+								<div class="list-location">02:30 PM</div>
+							</li>
+						</ul>
+					</div>
+					<div class="quick-setting-list">
+						<h6 class="title">الملاحظات</h6>
+						<ul class="list-items">
+							<li>
+								<div class="list-title">تحديث القائمة</div>
+								<div class="list-location">03:15 PM</div>
+							</li>
+							<li>
+								<div class="list-title">لا يمكن النقر على الزر</div>
+								<div class="list-location">03:18 PM</div>
+							</li>
+						</ul>
+					</div>
+					<div class="quick-setting-list">
+						<h6 class="title">الإعدادات السريعة</h6>
+						<ul class="set-priority-list">
+							<li>
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input" checked id="systemUpdates">
+									<label class="custom-control-label" for="systemUpdates">الأحداث</label>
+								</div>
+							</li>
+							<li>
+								<div class="custom-control custom-switch">
+									<input type="checkbox" class="custom-control-input" id="noti">
+									<label class="custom-control-label" for="noti">التنبيهات</label>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Quick settings end -->
+
+		<!-- *************
+			************ Header section end *************
+		************* -->
+
+		<!-- Container fluid start -->
+		<div class="container-fluid">
+
+			<!-- Navigation start -->
+			<nav class="navbar navbar-expand-lg custom-navbar">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#WafiAdminNavbar" aria-controls="WafiAdminNavbar" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						<i></i>
+						<i></i>
+						<i></i>
+					</span>
+				</button>
+				<div class="collapse navbar-collapse" id="WafiAdminNavbar">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link {% active 'home' %}" href="{% url 'home' %}" role="button">
+								<i class="icon-devices_other nav-icon"></i>
+								الرئيسية
+							</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle {% active 'agents,agents_create,agents_edit,departments,departments_create,departments_edit,companies,companies_create,companies_edit,users,users_create,users_edit' %}" href="#" id="tablesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="icon-border_all nav-icon"></i>
+								المستخدمين
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="tablesDropdown">
+								<li>
+									<a class="dropdown-item {% active 'agents,agents_create,agents_edit' %}" href="{% url 'agents' %}">الوكلات</a>
+								</li>
+								<li>
+									<a class="dropdown-item {% active 'departments,departments_create,departments_edit' %}" href="{% url 'departments' %}">الجهات والإدارات</a>
+								</li>
+								<li>
+									<a class="dropdown-item {% active 'companies,companies_create,companies_edit' %}" href="{% url 'companies' %}">المقاولون والإستشاريين</a>
+								</li>
+								<li>
+									<a class="dropdown-item {% active 'users,users_create,users_edit' %}" href="{% url 'users' %}">مستخدمين النظام</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="icon-book-open nav-icon"></i>
+								العقود
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="pagesDropdown">
+								<li>
+									<a class="dropdown-item" href="cards.html">العقود</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="cards.html">معاملات العقود</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="appsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="icon-package nav-icon"></i>
+								المخططات الخاصة
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="appsDropdown">
+								<li>
+									<a class="dropdown-item" href="chat.html">المخططات الخاصة</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="chat.html">معاملات المخططات الخاصة</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#" role="button">
+								<i class="icon-devices_other nav-icon"></i>
+								التوثيق الألي
+							</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="graphsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="icon-pie-chart1 nav-icon"></i>
+								التقارير
+							</a>
+							<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="graphsDropdown">
+								<li>
+									<a class="dropdown-item" href="morris-graphs.html">تقرير 1</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="flot-graphs.html">تقرير 2</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="c3-graphs.html">تقرير 3</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#" role="button">
+								<i class="icon-edit1 nav-icon"></i>
+								المراسلات
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<!-- Navigation end -->
+
+			<!-- *************
+				************ Main container start *************
+			************* -->
+			<div class="main-container">
+
+				<!-- Page header start -->
+				<div class="page-header">
+					<ol class="breadcrumb">
+						{% block breadcrumb %}{% endblock %}
+					</ol>
+
+					{% block app_action %}
+					{% endblock %}
+				</div>
+				<!-- Page header end -->
+
+				<!-- Content wrapper start -->
+				<div class="content-wrapper">
+                    {% block content %}
+                    {% endblock %}
+				</div>
+				<!-- Content wrapper end -->
+
+			</div>
+			<!-- *************
+				************ Main container end *************
+			************* -->
+
+			<!-- Footer start -->
+			<footer class="main-footer">© أمانة العاصمة المقدسة 2025</footer>
+			<!-- Footer end -->
+
+		</div>
+		<!-- Container fluid end -->
+
+		<!-- *************
+			************ Required JavaScript Files *************
+		************* -->
+		<!-- Required jQuery first, then Bootstrap Bundle JS -->
+		<script src="{% static 'site/js/jquery.min.js' %}"></script>
+		<script src="{% static 'site/js/bootstrap.bundle.min.js' %}"></script>
+		<script src="{% static 'site/js/moment.js' %}"></script>
+
+        {% block js %}
+        {% endblock %}
+
+		<!-- Main Js Required -->
+		<script src="{% static 'site/js/main.js' %}"></script>
+
+		{% block js_end %}
+        {% endblock %}
+
+	</body>
+
+</html>

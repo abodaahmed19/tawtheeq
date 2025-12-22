@@ -1,0 +1,18 @@
+.jazzmin-login-page {
+    background-color: #26423f;
+}
+.login-logo img {
+    max-width: 192px;
+    max-height: 36px;
+}
+
+.main-sidebar .brand-text {
+    visibility: hidden !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #26423f;
+    border-color: #26423f;
+    box-shadow: none;
+}

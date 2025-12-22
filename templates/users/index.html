@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} - المستخدمين{% endblock %}
+
+{% block css %}
+<!-- Data Tables -->
+<link rel="stylesheet" href="{% static 'site/vendor/datatables/dataTables.bs4.css' %}" />
+<link rel="stylesheet" href="{% static 'site/vendor/datatables/dataTables.bs4-custom.css' %}" />
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">المستخدمين</li>
+{% endblock %}
+{% block app_action %}
+<ul class="app-actions">
+    <li>
+        <a href="{% url 'users_create' %}" data-toggle="tooltip" data-placement="top" title="مستخدم جديد"
+            data-original-title="مستخدم جديد">
+            <i class="icon-add-user"></i>
+        </a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<!-- Row starts -->
+<div class="row gutters">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">احصائيات المستخدمين</div>
+            </div>
+            <div class="card-body">
+
+                <!-- Row starts -->
+                <div class="row gutters">
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="ticket-status-card">
+                            <h6>اجمالي المستخدمين</h6>
+                            <h3>{{ users.count }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="ticket-status-card">
+                            <h6>المسؤولين</h6>
+                            <h3>{{ admin.count }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="ticket-status-card">
+                            <h6>المديرين</h6>
+                            <h3>{{ manager.count }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="ticket-status-card">
+                            <h6>اﻟﻣﻘﺎوﻟون واﻹﺳﺗﺷﺎرﯾون</h6>
+                            <h3>{{ company.count }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="ticket-status-card">
+                            <h6>المراجعين</h6>
+                            <h3>{{ reviewer.count }}</h3>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
+                        <div class="ticket-status-card">
+                            <h6>المستخدمين العاديين</h6>
+                            <h3>{{ user.count }}</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row ends -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row ends -->
+
+<!-- Row start -->
+<div class="row gutters">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="table-container">
+            <div class="t-header">إدارة المستخدمين</div>
+            <div class="table-responsive">
+                {% include 'messages.html' %}
+                <table id="rowSelection" class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>الاسم</th>
+                            <th>اسم المستخدم</th>
+                            <th>البريد الإلكتروني</th>
+                            <th>نشط</th>
+                            <th>الدور</th>
+                            <th>آخر دخول</th>
+                            <th>التحكم</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{% if user.is_active %}
+                                <span class="badge badge-success">نعم</span>
+                                {% else %}
+                                <span class="badge badge-danger">لا</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ user.role }}</td>
+                            <td>{{ user.last_login|date:"d M Y h:i a" }}</td>
+                            <td>
+                                <div class="td-actions">
+                                    <a href="#" class="icon green" data-toggle="tooltip" data-placement="top" title=""
+                                        data-original-title="عرض">
+                                        <i class="icon-eye"></i>
+                                    </a>
+                                    <a href="{% url 'users_edit' user.id %}" class="icon blue" data-toggle="tooltip" data-placement="top" title=""
+                                        data-original-title="تعديل">
+                                        <i class="icon-edit"></i>
+                                    </a>
+                                    {% if user.role != 'admin' %}
+                                        <a href="#" class="icon red" data-toggle="tooltip" data-placement="top" title=""
+                                            data-original-title="حذف">
+                                            <i class="icon-cancel"></i>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Row end -->
+{% endblock %}
+
+{% block js %}
+<!-- Data Tables -->
+<script src="{% static 'site/vendor/datatables/dataTables.min.js' %}"></script>
+<script src="{% static 'site/vendor/datatables/dataTables.bootstrap.min.js' %}"></script>
+
+<!-- Custom Data tables -->
+<script src="{% static 'site/vendor/datatables/custom/custom-datatables.js' %}"></script>
+<script src="{% static 'site/vendor/datatables/custom/fixedHeader.js' %}"></script>
+{% endblock %}

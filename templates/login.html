@@ -1,0 +1,89 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+	
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Meta -->
+		<meta name="description" content="Responsive Bootstrap4 Dashboard Template">
+		<meta name="author" content="ParkerThemes">
+		<link rel="shortcut icon" href="{% static 'site/img/fav.png' %}" />
+
+		<!-- Title -->
+		<title>أمانة العاصمة المقدسة - تسجيل الدخول</title>
+		
+		<!-- *************
+			************ Common Css Files *************
+		************ -->
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="{% static 'site/css/bootstrap.min.css' %}" />
+
+		<!-- Master CSS -->
+		<link rel="stylesheet" href="{% static 'site/css/main.css' %}" />
+
+	</head>
+
+	<body class="authentication">
+
+		<video autoplay="" muted="false" loop="loop" playsinline="" id="hail_video_slide">
+			<source src="{% static 'site/img/mkh.mp4' %}" type="video/mp4">
+		</video>
+
+		<!-- Container start -->
+		<div class="container">
+			
+            <form method="POST">
+                {% csrf_token %}
+				<div class="row justify-content-md-center">
+					<div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+						<div class="login-screen">
+							<div class="login-box">
+								<a href="#" class="login-logo">
+									<img src="{% static 'site/img/logo.png' %}" alt="Wafi Admin Dashboard" />
+								</a>
+								<h5>مرحباً بعودتك،<br />يرجى تسجيل الدخول إلى حسابك.</h5>
+                                {% if messages %}
+                                    <div class="alert alert-secondary" role="alert">
+										<ul>
+                                            {% for message in messages %}
+                                                <li>{{ message }}</li>
+                                            {% endfor %}
+                                        </ul>
+									</div>
+                                {% endif %}
+								<div class="form-group">
+                                    <input type="text" name="username" class="form-control" placeholder="اسم المستخدم" required>
+								</div>
+								<div class="form-group">
+                                    <input type="password" name="password" class="form-control" placeholder="كلمة المرور" required>
+								</div>
+								<div class="actions mb-4">
+									<div class="custom-control custom-checkbox">
+										<input type="checkbox" class="custom-control-input" id="remember_pwd">
+										<label class="custom-control-label" for="remember_pwd">تذكرني</label>
+									</div>
+									<button type="submit" class="btn btn-primary">تسجيل دخول</button>
+								</div>
+								<div class="forgot-pwd">
+									<a class="link" href="#">هل نسيت كلمة المرور ؟</a>
+								</div>
+								<!-- <hr>
+								<div class="actions align-left">
+									<span class="additional-link">غير مسجل؟</span>
+									<a href="#" class="btn btn-dark">إنشاء حساب</a>
+								</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+
+		</div>
+		<!-- Container end -->
+
+	</body>
+
+</html>
