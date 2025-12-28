@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from .roles import Roles
 
 class User(AbstractUser):
-    name = models.CharField("name", max_length=255, null=False, blank=False)
+    name = models.CharField("name", max_length=255)
 
     first_name = None
     last_name = None
@@ -13,6 +13,9 @@ class User(AbstractUser):
         choices=Roles.CHOICES,
         default=Roles.USER
     )
+
+    class Meta:
+        db_table = 'users'
 
     def __str__(self):
         return self.name or self.username

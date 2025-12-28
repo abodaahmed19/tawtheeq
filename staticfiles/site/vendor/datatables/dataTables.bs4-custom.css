@@ -54,6 +54,7 @@ table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, 
 	padding: 10px 0 0 0;
 }
 div.dataTables_wrapper div.dataTables_filter {
+	text-align: left;
 	padding: 10px 0 5px 0;
 }
 div.dt-buttons {

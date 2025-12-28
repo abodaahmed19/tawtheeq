@@ -20,11 +20,11 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group row gutters">
-                            <label for="name" class="col-sm-3 col-form-label text-right">الاسم</label>
+                            <label for="name" class="col-sm-3 col-form-label text-right">الإسم</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ name }}" placeholder="الاسم" required>
-                                    <div class="invalid-feedback">الاسم مطلوب</div>
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ name }}" placeholder="الإسم" required>
+                                    <div class="invalid-feedback">الإسم مطلوب</div>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                         <div class="form-group row gutters">
                             <label for="type" class="col-sm-3 col-form-label text-right">النوع</label>
                             <div class="col-sm-9">
-                                <div class="input-group">{{type}}
+                                <div class="input-group">
                                     <select class="form-control form-control-lg" id="type" name="type" required>
                                         <option value="contractor" {% if type == 'contractor' %}selected{% endif %}>مقاول</option>
                                         <option value="consultant" {% if type == 'consultant' or type == '' %}selected{% endif %}>إستشاري</option>
@@ -56,7 +56,7 @@
                             <label for="cr_expiry" class="col-sm-3 col-form-label text-right">إنتهاء السجل التجاري</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="date" class="form-control" id="cr_expiry" name="cr_expiry" value="{{ cr_expiry }}" placeholder="إنتهاء السجل التجاري">
+                                    <input type="date" class="form-control" id="cr_expiry" name="cr_expiry" value="{{ cr_expiry|date:'Y-m-d' }}" placeholder="إنتهاء السجل التجاري">
                                     <div class="invalid-feedback">إنتهاء السجل التجاري مطلوب</div>
                                 </div>
                             </div>
@@ -106,7 +106,7 @@
                             <label for="address" class="col-sm-3 col-form-label text-right">العنوان</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <textarea class="form-control" id="address" name="address" value="{{ address }}" placeholder="العنوان">{{ address }}</textarea>
+                                    <textarea class="form-control" id="address" name="address" placeholder="العنوان">{{ address }}</textarea>
                                     <div class="invalid-feedback">العنوان مطلوب</div>
                                 </div>
                             </div>

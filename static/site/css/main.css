@@ -5236,7 +5236,9 @@ button:focus {
   width: 11rem;
   font-size: .75rem;
   left: auto;
-  right: 0; }
+  right: 0;
+  text-align: right;
+}
   .dropdown-menu:before {
     position: absolute;
     top: -9px;

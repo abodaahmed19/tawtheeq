@@ -2,6 +2,18 @@
 {% load static %}
 {% block title %} - إضافة إدارة{% endblock %}
 
+{% block css %}
+    <!-- *************
+        ************ Vendor Css Files *************
+    ************ -->
+    <!-- Data Tables -->
+    <style>
+        #departments-container .mb-3:last-child{
+            margin: 0 !important;
+        }
+    </style>
+{% endblock %}
+
 {% block breadcrumb %}
 <li class="breadcrumb-item"><a href="{% url 'departments' %}">الجهات والإدارات</a></li>
 <li class="breadcrumb-item active">إضافة إدارة</li>
@@ -20,12 +32,12 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group row gutters">
-                        <label for="name" class="col-sm-3 col-form-label text-right">الاسم</label>
+                        <label for="name" class="col-sm-3 col-form-label text-right">الإسم</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="name" name="name" value="{{ name }}"
-                                    placeholder="الاسم" required>
-                                <div class="invalid-feedback">الاسم مطلوب</div>
+                                    placeholder="الإسم" required>
+                                <div class="invalid-feedback">الإسم مطلوب</div>
                             </div>
                         </div>
                     </div>

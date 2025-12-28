@@ -3462,10 +3462,11 @@ ul.statistics {
   border-radius: 2px;
   padding: 1rem;
   margin: 0 0 1rem 0; }
-  .ticket-status-card h3 {
-    font-weight: 700;
-    margin: 0;
-    color: #cc2626; }
+.ticket-status-card h3 {
+  font-weight: 700;
+  margin: 0;
+  color: #26423f;
+}
   .ticket-status-card h6 {
     font-weight: 600; }
 
@@ -4377,18 +4378,6 @@ ul.user-messages li {
 							Bootstrap Overwrite Css							
 	************************************************
 ************************************************/
-.float-right {
-  float: left !important; }
-
-.float-left {
-  float: right !important; }
-
-.text-right {
-  text-align: left !important; }
-
-.text-left {
-  text-align: right !important; }
-
 .accordion {
   border: 1px solid #e1e4f4;
   -webkit-border-radius: 5px;
@@ -5247,7 +5236,9 @@ button:focus {
   width: 11rem;
   font-size: .75rem;
   left: auto;
-  right: 0; }
+  right: 0;
+  text-align: right;
+}
   .dropdown-menu:before {
     position: absolute;
     top: -9px;
@@ -5286,11 +5277,10 @@ button:focus {
       -webkit-border-radius: 0px;
       -moz-border-radius: 0px;
       border-radius: 0px; }
-    .dropdown-menu .dropdown-item.active-page {
-      color: #26423f;
-      background: #f4f5fb;
-      pointer-events: none;
-      cursor: not-allowed; }
+  .dropdown-menu .dropdown-item.active-page {
+    color: #26423f;
+    background: #f4f5fb;
+  }
   .dropdown-menu .dropdown-menu-header {
     padding: .7rem 1rem;
     margin-bottom: .5rem;
@@ -6157,7 +6147,7 @@ label {
   .table .td-actions {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     flex-direction: row; }
     .table .td-actions a.icon {
       margin: 0 3px;

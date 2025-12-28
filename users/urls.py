@@ -8,5 +8,5 @@ urlpatterns = [
     path('users/', views.users, name='users'),
     path('users/create/', views.users_create, name='users_create'),
     path('users/<int:user_id>/edit/', views.users_edit, name='users_edit'),
-
+    path('profile/', views.profile, name='profile'),
 ]

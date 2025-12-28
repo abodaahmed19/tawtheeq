@@ -3,6 +3,9 @@
 {% block title %} - الوكلات{% endblock %}
 
 {% block css %}
+    <!-- *************
+        ************ Vendor Css Files *************
+    ************ -->
     <!-- Data Tables -->
     <link rel="stylesheet" href="{% static 'site/vendor/datatables/dataTables.bs4.css' %}" />
     <link rel="stylesheet" href="{% static 'site/vendor/datatables/dataTables.bs4-custom.css' %}" />
@@ -37,7 +40,7 @@
                         <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
                             <div class="ticket-status-card">
                                 <h6>اجمالي الوكلات</h6>
-                                <h3>{{ agents.count }}</h3>
+                                <h3>{{ agents|length }}</h3>
                             </div>
                         </div>
                     </div>
@@ -71,26 +74,24 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>الاسم</th>
+                                            <th>الإسم</th>
                                             <th>الجهات والإدارات</th>
-                                            <th>المقاولون واﻹﺳﺗﺷﺎرﯾين</th>
                                             <th>التحكم</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for agent in agents %}
                                         <tr>
-                                            <td>{{ agent.id }}</td>
-                                            <td>{{ agent.name }}</td>
-                                            <td>0</td>
-                                            <td>0</td>
+                                            <td>{{ agent.0 }}</td>
+                                            <td>{{ agent.1 }}</td>
+                                            <td>{{ agent.2 }}</td>
                                             <td>
                                                 <div class="td-actions">
                                                     <a href="#" class="icon green" data-toggle="tooltip" data-placement="top" title=""
                                                         data-original-title="عرض">
                                                         <i class="icon-eye"></i>
                                                     </a>
-                                                    <a href="{% url 'agents_edit' agent.id %}" class="icon blue" data-toggle="tooltip" data-placement="top" title=""
+                                                    <a href="{% url 'agents_edit' agent.0 %}" class="icon blue" data-toggle="tooltip" data-placement="top" title=""
                                                         data-original-title="تعديل">
                                                         <i class="icon-edit"></i>
                                                     </a>

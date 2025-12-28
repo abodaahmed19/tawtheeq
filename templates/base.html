@@ -168,7 +168,7 @@
 									<h5>{{ request.user.name }}</h5>
 									<p>{{ request.user.username }}</p>
 								</div>
-								<a href="user-profile.html"><i class="icon-user1"></i> الملف الشخصي</a>
+								<a href="{% url 'profile' %}"><i class="icon-user1"></i> الملف الشخصي</a>
 								<a href="account-settings.html"><i class="icon-settings1"></i> إعدادات الحساب</a>
 								<a href="{% url 'logout' %}"><i class="icon-log-out1"></i> تسجيل الخروج</a>
 							</div>
@@ -277,7 +277,7 @@
 							</div>
 							<div class="row less-gutters">
 								<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
-									<a href="user-profile.html" class="quick-tile">
+									<a href="{% url 'profile' %}" class="quick-tile">
 										<i class="icon-account_circle"></i>
 										الملف الشخصي
 									</a>
@@ -415,16 +415,16 @@
 							</ul>
 						</li>
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<a class="nav-link dropdown-toggle  {% active 'contracts,contracts_create,contracts_edit,contract_transactions,contract_transactions_create,contract_transactions_edit' %}" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="icon-book-open nav-icon"></i>
 								العقود
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="pagesDropdown">
 								<li>
-									<a class="dropdown-item" href="cards.html">العقود</a>
+									<a class="dropdown-item {% active 'contracts,contracts_create,contracts_edit' %}" href="{% url 'contracts' %}">العقود</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="cards.html">معاملات العقود</a>
+									<a class="dropdown-item {% active 'contract_transactions,contract_transactions_create,contract_transactions_edit' %}" href="{% url 'contract_transactions' %}">معاملات العقود</a>
 								</li>
 							</ul>
 						</li>
@@ -435,10 +435,10 @@
 							</a>
 							<ul class="dropdown-menu" aria-labelledby="appsDropdown">
 								<li>
-									<a class="dropdown-item" href="chat.html">المخططات الخاصة</a>
+									<a class="dropdown-item" href="#">المخططات الخاصة</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="chat.html">معاملات المخططات الخاصة</a>
+									<a class="dropdown-item" href="#">معاملات المخططات الخاصة</a>
 								</li>
 							</ul>
 						</li>
@@ -455,13 +455,13 @@
 							</a>
 							<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="graphsDropdown">
 								<li>
-									<a class="dropdown-item" href="morris-graphs.html">تقرير 1</a>
+									<a class="dropdown-item" href="#">تقرير 1</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="flot-graphs.html">تقرير 2</a>
+									<a class="dropdown-item" href="#">تقرير 2</a>
 								</li>
 								<li>
-									<a class="dropdown-item" href="c3-graphs.html">تقرير 3</a>
+									<a class="dropdown-item" href="#">تقرير 3</a>
 								</li>
 							</ul>
 						</li>

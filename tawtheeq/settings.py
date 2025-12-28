@@ -44,6 +44,12 @@ INSTALLED_APPS = [
     'agents.apps.AgentsConfig',
     'departments.apps.DepartmentsConfig',
     'companies.apps.CompaniesConfig',
+    'contracts.apps.ContractsConfig',
+    'contract_suspension_periods.apps.ContractSuspensionPeriodsConfig',
+    'contract_transaction_types.apps.ContractTransactionTypesConfig',
+    'contract_transaction_requirements.apps.ContractTransactionRequirementsConfig',
+    'contract_files.apps.ContractFilesConfig',
+    'contract_transactions.apps.ContractTransactionsConfig',
 ]
 
 MIDDLEWARE = [

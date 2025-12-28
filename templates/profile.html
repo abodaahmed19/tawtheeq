@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} - الرئيسية{% endblock %}
+
+{% block css %}
+    <!-- *************
+        ************ Vendor Css Files *************
+    ************ -->
+    <!-- DateRange css -->
+    <link rel="stylesheet" href="{% static 'site/vendor/daterange/daterange.css' %}" />
+
+    <!-- Chartist css -->
+    <link rel="stylesheet" href="{% static 'site/vendor/chartist/css/chartist.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'site/vendor/chartist/css/chartist-custom.css' %}" />
+{% endblock %}
+
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">الرئيسية</li>
+{% endblock %}
+{% block content %}
+    <!-- Row start -->
+    <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="account-settings">
+                        <div class="user-profile">
+                            <div class="user-avatar">
+                                <img src="img/user.png" alt="" />
+                            </div>
+                            <h4 class="user-name">{{ request.user.name }}</h4>
+                            <h5>{{ request.user.username }}</h5>
+                            <h6 class="user-email">{{ request.user.email }}</h6>
+                        </div>
+                        <div class="setting-links">
+                            <a href="chat.html">
+                                <i class="icon-chat"></i>
+                                المراسلات
+                            </a>
+                            <a href="tasks.html">
+                                <i class="icon-date_range"></i>
+                                المهام
+                            </a>
+                            <a href="documents.html">
+                                <i class="icon-file-text"></i>
+                                المستندات
+                            </a>
+                            <a href="faq.html">
+                                <i class="icon-info"></i>
+                                العقود
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
+            <div class="card h-100">
+                <div class="card-header">
+                    <div class="card-title">تحديث الملف الشخصي</div>
+                </div>
+                <div class="card-body">
+                    <div class="row gutters">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="name">الإسم</label>
+                                <input type="text" class="form-control" id="name" value="{{ request.user.name }}" placeholder="الإسم">
+                            </div>
+                            <div class="form-group">
+                                <label for="eMail">البريد الإلكتروني</label>
+                                <input type="email" class="form-control" id="eMail" value="{{ request.user.email }}" placeholder="البريد الإلكتروني">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="username">إسم المستخدم</label>
+                                <input type="text" class="form-control" id="username" value="{{ request.user.username }}" placeholder="إسم المستخدم">
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="text-right">
+                                <button type="button" id="submit" name="submit" class="btn btn-primary">تحديث</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Row end -->
+{% endblock %}
+
+{% block js %}
+    <!-- *************
+        ************ Vendor Js Files *************
+    ************* -->
+    <!-- Slimscroll JS -->
+    <script src="{% static 'site/vendor/slimscroll/slimscroll.min.js' %}"></script>
+    <script src="{% static 'site/vendor/slimscroll/custom-scrollbar.js' %}"></script>
+
+    <!-- Daterange -->
+    <script src="{% static 'site/vendor/daterange/daterange.js' %}"></script>
+    <script src="{% static 'site/vendor/daterange/custom-daterange.js' %}"></script>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.db import models
 
 class Company(models.Model):
-    name = models.CharField("name", max_length=255, null=False, blank=False)
+    name = models.CharField("name", max_length=255)
     cr_number = models.IntegerField("cr_number", null=True, blank=True)
     cr_expiry = models.DateField("cr_expiry", null=True, blank=True)
     phone = models.CharField("phone", max_length=15, null=True, blank=True)
@@ -16,6 +16,9 @@ class Company(models.Model):
             ('consultant', 'Consultant'),
         ]
     )
+
+    class Meta:
+        db_table = 'companies'
 
     def __str__(self):
         return self.name

@@ -7,9 +7,14 @@ from .models import Company
 @role_required('admin')
 def companies(request):
     companies = Company.objects.all()
+    contractors = Company.objects.filter(type='contractor')
+    consultants = Company.objects.filter(type='consultant')
+    
 
     return render(request, 'companies/index.html', {
-        'companies': companies
+        'companies': companies,
+        'contractors': contractors,
+        'consultants': consultants
     })
 
 # Create Company
@@ -37,7 +42,7 @@ def companies_create(request):
 
         company = Company(name=name,cr_number=cr_number,cr_expiry=cr_expiry,phone=phone,mobile=mobile,email=email,website=website,address=address,type=type)
         company.save()
-        messages.success(request, f"تم إنشاء الوكالة {company.name} بنجاح")
+        messages.success(request, f"تم إنشاء المقاول أو الأستشاري {company.name} بنجاح")
         return redirect('companies')
 
     return render(request, 'companies/create.html', {
@@ -89,10 +94,18 @@ def companies_edit(request, company_id):
         company.type = type
         company.save()
 
-        messages.success(request, f"تم تعديل الوكالة {company.name} بنجاح")
+        messages.success(request, f"تم تعديل المقاول أو الأستشاري {company.name} بنجاح")
         return redirect('companies')
 
     return render(request, 'companies/edit.html', {
         'company': company,
         'name': name,
+        'cr_number': cr_number,
+        'cr_expiry': cr_expiry,
+        'phone': phone,
+        'mobile': mobile,
+        'email': email,
+        'website': website,
+        'address': address,
+        'type': type
     })

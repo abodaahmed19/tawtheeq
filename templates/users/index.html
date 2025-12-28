@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
+{% load translate %}
 {% block title %} - المستخدمين{% endblock %}
 
 {% block css %}
-<!-- Data Tables -->
-<link rel="stylesheet" href="{% static 'site/vendor/datatables/dataTables.bs4.css' %}" />
-<link rel="stylesheet" href="{% static 'site/vendor/datatables/dataTables.bs4-custom.css' %}" />
+    <!-- *************
+        ************ Vendor Css Files *************
+    ************ -->
+    <!-- Data Tables -->
+    <link rel="stylesheet" href="{% static 'site/vendor/datatables/dataTables.bs4.css' %}" />
+    <link rel="stylesheet" href="{% static 'site/vendor/datatables/dataTables.bs4-custom.css' %}" />
 {% endblock %}
 
 {% block breadcrumb %}
@@ -90,8 +94,8 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>الاسم</th>
-                            <th>اسم المستخدم</th>
+                            <th>الإسم</th>
+                            <th>إسم المستخدم</th>
                             <th>البريد الإلكتروني</th>
                             <th>نشط</th>
                             <th>الدور</th>
@@ -112,7 +116,7 @@
                                 <span class="badge badge-danger">لا</span>
                                 {% endif %}
                             </td>
-                            <td>{{ user.role }}</td>
+                            <td>{{ user.role|ar }}</td>
                             <td>{{ user.last_login|date:"d M Y h:i a" }}</td>
                             <td>
                                 <div class="td-actions">

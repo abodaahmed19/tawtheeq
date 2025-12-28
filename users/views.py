@@ -16,7 +16,7 @@ def login_view(request):
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, "اسم المستخدم أو كلمة المرور غير صحيحة")
+            messages.error(request, "إسم المستخدم أو كلمة المرور غير صحيحة")
     return render(request, 'login.html')
 
 # Logout
@@ -70,7 +70,7 @@ def users_create(request):
         if password != password_confirm:
             messages.error(request, "كلمتا المرور غير متطابقتين")
         elif User.objects.filter(username=username).exists():
-            messages.error(request, "اسم المستخدم موجود بالفعل")
+            messages.error(request, "إسم المستخدم موجود بالفعل")
         else:
             user = User(username=username, name=name, email=email, role=role, is_staff=is_staff, is_active=is_active)
             user.set_password(password)
@@ -104,7 +104,7 @@ def users_edit(request, user_id):
         password_confirm = request.POST.get('password_confirm')
 
         if User.objects.exclude(id=user.id).filter(username=username).exists():
-            messages.error(request, "اسم المستخدم موجود بالفعل")
+            messages.error(request, "إسم المستخدم موجود بالفعل")
         elif password:
             if password != password_confirm:
                 messages.error(request, "كلمتا المرور غير متطابقتين")
@@ -127,3 +127,9 @@ def users_edit(request, user_id):
         'email': email,
         'role': role
     })
+
+
+# Profile
+@login_required(login_url='login')
+def profile(request):
+    return render(request, 'profile.html')

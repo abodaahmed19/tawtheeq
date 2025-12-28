@@ -2,11 +2,22 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from helpers.utils import role_required
 from .models import Agent
+from departments.models import Department
 
 # Agents
 @role_required('admin')
 def agents(request):
-    agents = Agent.objects.all()
+    array_agents = Agent.objects.all()
+
+    agents = []
+
+    for agent in array_agents:
+        departments_count = Department.objects.filter(agent_id=agent.id).count()
+        agents.append([
+            agent.id,
+            agent.name,
+            departments_count
+        ])
 
     return render(request, 'agents/index.html', {
         'agents': agents

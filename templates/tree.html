@@ -1,1 +1,593 @@
-<p>هنا الشجرة</p>
+{% load static %}
+{% block css %}
+    <!-- *************
+        ************ Vendor Css Files *************
+    ************ -->
+    <script src="{% static 'site/vendor/orgchart/orgchart.js' %}"></script>
+
+    <style id="myStyles">
+        #tree {
+            width: 100%;
+            height: 100%;
+        }
+
+        .blue rect{
+            fill: #40E0D0 !important;
+        }
+
+        .yellow rect{
+            fill: #FFFDA0 !important;
+        }
+
+        .grey rect{
+            fill: #C0C0C0 !important;
+        }
+
+        .brown rect{
+            fill: #D2B48C !important;
+        }
+
+
+        .green rect{
+            fill: #A0FFA0 !important;
+        }
+
+        .red-border>rect{
+            stroke: #FF0000 !important;
+        }
+    </style>
+{% endblock %}
+
+<div id="tree"></div>
+nodeBinding
+{% block js %}
+    <script>
+        if (!localStorage.getItem('pttep-v2')){
+            localStorage.clear();
+            localStorage.setItem('pttep-v2', 'passed');
+            console.log('passed');
+        }
+
+        var defaultData =
+        [
+            {
+            "NO": 1,
+            "SLOT NO": "L21-016",
+            "HEADCOUNT": 1,
+            "SLOT STATUS": "Active",
+            "PERSON ID": 65843,
+            "POSITION ID": 70010369,
+            "NAME": "Name 1",
+            "ORG": "PGF/LP",
+            "2024 POSITION TITLE": "Manager, Lang Lebah Development Planning Section",
+            "FILLED / VACANT": "FILLED",
+            "POSITION CLASS / STATUS (FOR BOX)": "PX",
+            "EMPLOYEE CLASS  / INCUMBENT STATUS": "Expat - Secondee",
+            "LOCAL / EXPAT": "Expat",
+            "DEPT ABB": "PGF",
+            "ASSISTANT": "Mgr",
+            "HO": "Yes",
+            "MPM": "Yes",
+            "SUPERVISOR ID": 65499,
+            "SUPERVISOR": "Name 21",
+            "CurrentPROJECTS": 5,
+            "STALLEDPROJECTS": 2,
+            "COMPLATEDPROJECTS": 15
+            },
+            {
+            "NO": 3,
+            "SLOT NO": "L21-002",
+            "HEADCOUNT": 1,
+            "SLOT STATUS": "Active",
+            "PERSON ID": 64192,
+            "POSITION ID": 70008076,
+            "NAME": "Name 3",
+            "ORG": "PGF",
+            "2024 POSITION TITLE": "Manager, Lang Lebah Offshore Installation",
+            "FILLED / VACANT": "FILLED",
+            "POSITION CLASS / STATUS (FOR BOX)": "PX",
+            "EMPLOYEE CLASS  / INCUMBENT STATUS": "Expat - Secondee",
+            "LOCAL / EXPAT": "Expat",
+            "DEPT ABB": "PGF",
+            "HO": "Yes",
+            "MPM": "Yes",
+            "SUPERVISOR ID": 65499,
+            "SUPERVISOR": "Name 21",
+            "CurrentPROJECTS": 3,
+            "STALLEDPROJECTS": 1,
+            "COMPLATEDPROJECTS": 10
+            },
+            {
+            "NO": 22,
+            "SLOT NO": "22-0361",
+            "HEADCOUNT": 1,
+            "SLOT STATUS": "Active",
+            "PERSON ID": 65499,
+            "POSITION ID": 70009982,
+            "NAME": "Name 21",
+            "ORG": "PGF",
+            "2024 POSITION TITLE": "Head of Malaysia Exploration, Greenfield and Lang Lebah Development Department ",
+            "FILLED / VACANT": "FILLED",
+            "POSITION CLASS / STATUS (FOR BOX)": "PX",
+            "EMPLOYEE CLASS  / INCUMBENT STATUS": "Expat - Secondee",
+            "LOCAL / EXPAT": "Expat",
+            "DEPT ABB": "PGF",
+            "ASSISTANT": "Mgr",
+            "HO": "Yes",
+            "MPM": "Yes",
+            "SUPERVISOR ID": 66079,
+            "SUPERVISOR": "Name 90",
+            "CurrentPROJECTS": 8,
+            "STALLEDPROJECTS": 3,
+            "COMPLATEDPROJECTS": 25
+            },
+            {
+            "NO": 86,
+            "SLOT NO": "L21-012",
+            "HEADCOUNT": 1,
+            "SLOT STATUS": "Active",
+            "PERSON ID": 67612,
+            "POSITION ID": 70010787,
+            "NAME": "Name 84",
+            "ORG": "PGE/L",
+            "2024 POSITION TITLE": "Head of Lang Lebah Engineering Section",
+            "FILLED / VACANT": "FILLED",
+            "POSITION CLASS / STATUS (FOR BOX)": "CN",
+            "EMPLOYEE CLASS  / INCUMBENT STATUS": "FTE-N",
+            "LOCAL / EXPAT": "Local",
+            "DEPT ABB": "PGE",
+            "ASSISTANT": "Mgr",
+            "HO": "Yes",
+            "MPM": "Yes",
+            "SUPERVISOR ID": 68422,
+            "SUPERVISOR": "Name 89",
+            "CurrentPROJECTS": 4,
+            "STALLEDPROJECTS": 2,
+            "COMPLATEDPROJECTS": 12
+            },
+            {
+            "NO": 91,
+            "SLOT NO": "A07-012",
+            "HEADCOUNT": 1,
+            "SLOT STATUS": "Active",
+            "PERSON ID": 68422,
+            "POSITION ID": 70006494,
+            "NAME": "Name 89",
+            "ORG": "PGE",
+            "2024 POSITION TITLE": "VP, MY Greenfield Eng&Const Dept, s/c SKO as Head of MY Greenfield Eng&Const Dept",
+            "FILLED / VACANT": "FILLED",
+            "POSITION CLASS / STATUS (FOR BOX)": "PX",
+            "EMPLOYEE CLASS  / INCUMBENT STATUS": "Expat - Secondee",
+            "LOCAL / EXPAT": "Expat",
+            "DEPT ABB": "PGE",
+            "ASSISTANT": "Mgr",
+            "HO": "Yes",
+            "MPM": "Yes",
+            "SUPERVISOR ID": 66079,
+            "SUPERVISOR": "Name 90",
+            "CurrentPROJECTS": 6,
+            "STALLEDPROJECTS": 1,
+            "COMPLATEDPROJECTS": 30
+            },
+            {
+            "NO": 93,
+            "SLOT NO": "M23-031",
+            "HEADCOUNT": 1,
+            "SLOT STATUS": "Active",
+            "PERSON ID": 66495,
+            "POSITION ID": 70010242,
+            "NAME": "Name 91",
+            "ORG": "PBE/S",
+            "2024 POSITION TITLE": "Head of Project Services Section",
+            "FILLED / VACANT": "FILLED",
+            "POSITION CLASS / STATUS (FOR BOX)": "PX",
+            "EMPLOYEE CLASS  / INCUMBENT STATUS": "Expat - Secondee",
+            "LOCAL / EXPAT": "Expat",
+            "DEPT ABB": "PBE",
+            "ASSISTANT": "Mgr",
+            "HO": "Yes",
+            "MPM": "Yes",
+            "SUPERVISOR ID": 68601,
+            "SUPERVISOR": "Name 92",
+            "CurrentPROJECTS": 2,
+            "STALLEDPROJECTS": 3,
+            "COMPLATEDPROJECTS": 8
+            },
+            {
+            "NO": 94,
+            "SLOT NO": "M20-058",
+            "HEADCOUNT": 1,
+            "SLOT STATUS": "Active",
+            "PERSON ID": 66285,
+            "POSITION ID": 70006612,
+            "NAME": "Name 92",
+            "ORG": "PBE",
+            "2024 POSITION TITLE": "Head of Malaysia Brownfield Engineering and Construction Department",
+            "FILLED / VACANT": "FILLED",
+            "POSITION CLASS / STATUS (FOR BOX)": "PX",
+            "EMPLOYEE CLASS  / INCUMBENT STATUS": "Expat - Secondee",
+            "LOCAL / EXPAT": "Expat",
+            "DEPT ABB": "PBE",
+            "ASSISTANT": "Mgr",
+            "HO": "Yes",
+            "MPM": "Yes",
+            "SUPERVISOR ID": 66079,
+            "SUPERVISOR": "Name 90",
+            "CurrentPROJECTS": 7,
+            "STALLEDPROJECTS": 0,
+            "COMPLATEDPROJECTS": 22
+            },
+            {
+            "NO": 96,
+            "SLOT NO": "M23-027",
+            "HEADCOUNT": 1,
+            "SLOT STATUS": "Active",
+            "PERSON ID": 67279,
+            "POSITION ID": 70010232,
+            "NAME": "Name 94",
+            "ORG": "PLS/L",
+            "2024 POSITION TITLE": "Head of Legal and Country Manager Office Section",
+            "FILLED / VACANT": "FILLED",
+            "POSITION CLASS / STATUS (FOR BOX)": "PX",
+            "EMPLOYEE CLASS  / INCUMBENT STATUS": "Expat - Secondee",
+            "LOCAL / EXPAT": "Expat",
+            "DEPT ABB": "PGE",
+            "ASSISTANT": "Mgr",
+            "HO": "Yes",
+            "MPM": "Yes",
+            "SUPERVISOR ID": 66079,
+            "SUPERVISOR": "Name 90",
+            "CurrentPROJECTS": 1,
+            "STALLEDPROJECTS": 2,
+            "COMPLATEDPROJECTS": 5
+            },
+            {
+            "NO": 97,
+            "SLOT NO": "M20-066",
+            "HEADCOUNT": 1,
+            "SLOT STATUS": "Active",
+            "PERSON ID": 35916,
+            "POSITION ID": 70006616,
+            "NAME": "Name 95",
+            "ORG": "PLS/G",
+            "2024 POSITION TITLE": "Head of GRC and Public Affairs Section",
+            "FILLED / VACANT": "FILLED",
+            "POSITION CLASS / STATUS (FOR BOX)": "PNS",
+            "EMPLOYEE CLASS  / INCUMBENT STATUS": "Employee",
+            "LOCAL / EXPAT": "Local",
+            "DEPT ABB": "PLS",
+            "ASSISTANT": "Mgr",
+            "HO": "Yes",
+            "MPM": "Yes",
+            "SUPERVISOR ID": 66079,
+            "SUPERVISOR": "Name 90",
+            "CurrentPROJECTS": 3,
+            "STALLEDPROJECTS": 4,
+            "COMPLATEDPROJECTS": 20
+            }
+        ]
+
+
+        function convertToNodes(data) {
+        var nodes = {};
+        for (var item of data) {
+            if (!nodes[item.id]) {
+            item.id = item["NAME"];
+            item.pid = item["SUPERVISOR"];
+            item.tags = [];
+            var positionClass = item["POSITION CLASS / STATUS (FOR BOX)"];
+            var isVacant = item["FILLED / VACANT"] == "VACANT";
+            if (isVacant){
+                item.tags.push('green');
+                item.tags.push('red-border');        
+            }
+            else{
+                if (positionClass == "PX") {
+                item.tags.push('blue');
+                }
+                else if (positionClass == "CN" || positionClass == "PNS" || positionClass == "SX") {
+                item.tags.push('yellow')
+                }
+                else if (positionClass == "OFS" || positionClass == "ONS") {
+                item.tags.push('grey')
+                }
+                else if (positionClass == "CF") {
+                item.tags.push('brown');
+                }
+
+
+                if (item["LOCAL / EXPAT"] == "Expat"){
+                item.tags.push('red-border');        
+                }       
+            }
+
+            if (item["ASSISTANT"] != 'Mgr') {
+                item.tags.push('employee');
+            }
+
+            nodes[item.id] = item;
+            }
+        }
+
+        var roots = {};
+        var children = {};
+        for (var id in nodes) {
+            if (nodes[id].pid == undefined) {
+            roots[id] = nodes[id];
+            }
+            else {
+            if (!children[nodes[id].pid]) {
+                children[nodes[id].pid] = [];
+            }
+            children[nodes[id].pid].push(nodes[id]);
+            }
+        }
+
+
+        for (var id in nodes) {
+            if (roots[id] && !children[id]) {
+            delete nodes[id];
+            }
+        }
+
+        var normalizedData = [];
+
+        for (var id in nodes) {
+            var node = nodes[id];
+            normalizedData.push(node);
+        }
+        return normalizedData;
+        }
+
+        var iterate = function (node, counts, sender) {
+
+        for(let i = 0; i < node.childrenIds.length; i++){
+        var cnode = sender.getNode(node.childrenIds[i]);
+                var cdata = sender._get(cnode.id);
+            counts.totalPositionsCount += 1;
+            if (cdata["FILLED / VACANT"] == "VACANT") {
+                counts.vacantPostionsCount += 1;
+            }
+            if (cdata["LOCAL / EXPAT"] == "Expat") {
+                counts.expatriatePositionsCount += 1;
+            }
+            else {
+                counts.contractorPositionsCount += 1;
+            }
+
+                iterate(cnode, counts, sender);
+            }
+        }
+
+        OrgChart.MIXED_LAYOUT_ALL_NODES = false;
+        OrgChart.templates.manager = Object.assign({}, OrgChart.templates.ana);
+
+        OrgChart.templates.split.link = '<path stroke-linejoin="round" stroke="#000" stroke-width="2" fill="none" d="{edge}" />';
+        OrgChart.templates.split.scaleLessThen = {};
+        OrgChart.templates.split.scaleLessThen["0.3"] = Object.assign({}, OrgChart.templates.split);
+        OrgChart.templates.split.scaleLessThen["0.3"].link = '<path stroke-linejoin="round" stroke="#000" stroke-width="6" fill="none" d="{edge}" />';
+        OrgChart.templates.split.scaleLessThen["0.6"] = Object.assign({}, OrgChart.templates.split);
+        OrgChart.templates.split.scaleLessThen["0.6"].link = '<path stroke-linejoin="round" stroke="#000" stroke-width="4" fill="none" d="{edge}" />';
+
+        OrgChart.templates.subLevel.link = '<path stroke-linejoin="round" stroke="#000" stroke-width="2" fill="none" d="{edge}" />';
+        OrgChart.templates.subLevel.scaleLessThen = {};
+        OrgChart.templates.subLevel.scaleLessThen["0.3"] = Object.assign({}, OrgChart.templates.subLevel);
+        OrgChart.templates.subLevel.scaleLessThen["0.3"].link = '<path stroke-linejoin="round" stroke="#000" stroke-width="6" fill="none" d="{edge}" />';
+        OrgChart.templates.subLevel.scaleLessThen["0.6"] = Object.assign({}, OrgChart.templates.subLevel);
+        OrgChart.templates.subLevel.scaleLessThen["0.6"].link = '<path stroke-linejoin="round" stroke="#000" stroke-width="4" fill="none" d="{edge}" />';
+
+        OrgChart.templates.manager.plus = '';
+        OrgChart.templates.manager.minus = '';
+        OrgChart.templates.manager.size = [622, 168];
+        OrgChart.templates.manager.node = `<rect x="0" y="0" height="{h}" width="{w}" fill="#039BE5" stroke-width="3" stroke="#000" ></rect>
+        <line x1="0" x2="622" y1="36" y2="36" stroke="#000" stroke-width="1"></line>
+        <line x1="0" x2="622" y1="72" y2="72" stroke="#000" stroke-width="1"></line>
+        <line x1="0" x2="622" y1="108" y2="108" stroke="#000" stroke-width="1"></line>
+        <line x1="207" x2="207" y1="72" y2="108" stroke="#000" stroke-width="1"></line>
+        <line x1="415" x2="415" y1="72" y2="108" stroke="#000" stroke-width="1"></line>`;
+        OrgChart.templates.manager.title = '<text data-width="570" style="font-size: 18px;" fill="#000" x="311" y="25" text-anchor="middle">{val}</text>';
+        OrgChart.templates.manager.name = '<text data-width="570"  style="font-size: 18px;font-weight: bold;" fill="#000" x="311" y="61" text-anchor="middle">{val}</text>';
+        OrgChart.templates.manager.positionId = '<text style="font-size: 18px;" fill="#000" x="10" y="97" text-anchor="start">{val}</text>';
+        OrgChart.templates.manager.slotNumber = '<text  style="font-size: 18px;" fill="#000" x="311" y="97" text-anchor="middle">{val}</text>';
+        OrgChart.templates.manager.positionClass = '<text  style="font-size: 18px;" fill="#000" x="612" y="97" text-anchor="end">{val}</text>';
+
+        // ✅ عرض الأرقام الثلاثة جنب بعض (سطر واحد)
+        OrgChart.templates.manager.current_projects = '<text style="font-size: 16px;" fill="#000" x="104" y="133" text-anchor="middle">Current: {val}</text>';
+        OrgChart.templates.manager.stalled_projects = '<text style="font-size: 16px;" fill="#000" x="311" y="133" text-anchor="middle">Stalled: {val}</text>';
+        OrgChart.templates.manager.completed_projects = '<text style="font-size: 16px;" fill="#000" x="518" y="133" text-anchor="middle">Completed: {val}</text>';
+
+        OrgChart.templates.manager.counts = '{val}';
+
+        OrgChart.templates.manager.link = '<path stroke-linejoin="round" stroke="#000" stroke-width="2" fill="none" d="{rounded}" />'
+
+        OrgChart.templates.manager.scaleLessThen = {};
+        OrgChart.templates.manager.scaleLessThen["0.3"] = Object.assign({}, OrgChart.templates.manager);
+
+        OrgChart.templates.manager.scaleLessThen["0.3"].title = '';
+        OrgChart.templates.manager.scaleLessThen["0.3"].name = '<text data-width="570" style="font-size: 60px;" fill="#000" x="311" y="110" text-anchor="middle">{val}</text>';
+        OrgChart.templates.manager.scaleLessThen["0.3"].node = '<rect x="0" y="0" height="{h}" width="{w}" fill="#039BE5" stroke-width="8" stroke="#000" ></rect>';
+
+        OrgChart.templates.manager.scaleLessThen["0.3"].positionId = '';
+        OrgChart.templates.manager.scaleLessThen["0.3"].slotNumber = '';
+        OrgChart.templates.manager.scaleLessThen["0.3"].positionClass = '';
+        OrgChart.templates.manager.scaleLessThen["0.3"].current_projects = '';
+        OrgChart.templates.manager.scaleLessThen["0.3"].stalled_projects = '';
+        OrgChart.templates.manager.scaleLessThen["0.3"].completed_projects = '';
+        OrgChart.templates.manager.scaleLessThen["0.3"].counts = '';
+
+        OrgChart.templates.manager.scaleLessThen["0.3"].link = '<path stroke-linejoin="round" stroke="#000" stroke-width="6" fill="none" d="{rounded}" />'
+
+        OrgChart.templates.manager.scaleLessThen["0.6"] = Object.assign({}, OrgChart.templates.manager);
+        OrgChart.templates.manager.scaleLessThen["0.6"].title = '<text data-width="570" style="font-size: 30px;" fill="#000" x="311" y="40" text-anchor="middle">{val}</text>';
+        OrgChart.templates.manager.scaleLessThen["0.6"].name = '<text data-width="570"  style="font-size: 30px;font-weight: bold;" fill="#000" x="311" y="95" text-anchor="middle">{val}</text>';
+
+        OrgChart.templates.manager.scaleLessThen["0.6"].positionId = '<text style="font-size: 30px;" fill="#000" x="10" y="150" text-anchor="start">{val}</text>';
+        OrgChart.templates.manager.scaleLessThen["0.6"].slotNumber = '<text  style="font-size: 30px;" fill="#000" x="311" y="150" text-anchor="middle">{val}</text>';
+        OrgChart.templates.manager.scaleLessThen["0.6"].positionClass = '<text  style="font-size: 30px;" fill="#000" x="612" y="150" text-anchor="end">{val}</text>';
+        OrgChart.templates.manager.scaleLessThen["0.6"].current_projects = '';
+        OrgChart.templates.manager.scaleLessThen["0.6"].stalled_projects = '';
+        OrgChart.templates.manager.scaleLessThen["0.6"].completed_projects = '';
+
+        OrgChart.templates.manager.scaleLessThen["0.6"].counts = '';
+        OrgChart.templates.manager.scaleLessThen["0.6"].link = '<path stroke-linejoin="round" stroke="#000" stroke-width="4" fill="none" d="{rounded}" />';
+        OrgChart.templates.manager.scaleLessThen["0.6"].node = `<rect x="0" y="0" height="{h}" width="{w}" fill="#039BE5" stroke-width="5" stroke="#000" ></rect>
+        <line x1="0" x2="622" y1="56" y2="56" stroke="#000" stroke-width="2"></line>
+        <line x1="0" x2="622" y1="113" y2="113" stroke="#000" stroke-width="2"></line>
+        <line x1="207" x2="207" y1="113" y2="168" stroke="#000" stroke-width="2"></line>
+        <line x1="415" x2="415" y1="113" y2="168" stroke="#000" stroke-width="2"></line>`;
+
+        OrgChart.templates.employee = Object.assign({}, OrgChart.templates.ana);
+
+        OrgChart.templates.employee.plus = '';
+        OrgChart.templates.employee.minus = '';
+        OrgChart.templates.employee.size = [622, 108];
+        OrgChart.templates.employee.node = `<rect x="0" y="0" height="{h}" width="{w}" fill="#039BE5" stroke-width="3" stroke="#000" ></rect>
+        <line x1="0" x2="622" y1="36" y2="36" stroke="#000" stroke-width="1"></line>
+        <line x1="0" x2="622" y1="72" y2="72" stroke="#000" stroke-width="1"></line>
+        <line x1="207" x2="207" y1="72" y2="108" stroke="#000" stroke-width="1"></line>
+        <line x1="415" x2="415" y1="72" y2="108" stroke="#000" stroke-width="1"></line>`;
+        OrgChart.templates.employee.title = '<text data-width="570" style="font-size: 18px;" fill="#000" x="311" y="25" text-anchor="middle">{val}</text>';
+        OrgChart.templates.employee.name = '<text data-width="570"  style="font-size: 18px;font-weight: bold;" fill="#000" x="311" y="61" text-anchor="middle">{val}</text>';
+        OrgChart.templates.employee.positionId = '<text style="font-size: 18px;" fill="#000" x="10" y="97" text-anchor="start">{val}</text>';
+        OrgChart.templates.employee.slotNumber = '<text  style="font-size: 18px;" fill="#000" x="311" y="97" text-anchor="middle">{val}</text>';
+        OrgChart.templates.employee.positionClass = '<text  style="font-size: 18px;" fill="#000" x="612" y="97" text-anchor="end">{val}</text>';
+
+        // ✅ نفس التعديل لـ employee
+        OrgChart.templates.employee.current_projects = '<text style="font-size: 16px;" fill="#000" x="104" y="97" text-anchor="middle">Current: {val}</text>';
+        OrgChart.templates.employee.stalled_projects = '<text style="font-size: 16px;" fill="#000" x="311" y="97" text-anchor="middle">Stalled: {val}</text>';
+        OrgChart.templates.employee.completed_projects = '<text style="font-size: 16px;" fill="#000" x="518" y="97" text-anchor="middle">Completed: {val}</text>';
+
+        OrgChart.templates.employee.counts = '';
+
+        OrgChart.templates.employee.link = '<path stroke-linejoin="round" stroke="#000" stroke-width="2" fill="none" d="{rounded}" />'
+
+        OrgChart.templates.employee.scaleLessThen = {};
+        OrgChart.templates.employee.scaleLessThen["0.3"] = Object.assign({}, OrgChart.templates.manager);
+
+        OrgChart.templates.employee.scaleLessThen["0.3"].title = '';
+        OrgChart.templates.employee.scaleLessThen["0.3"].name = '<text data-width="570" style="font-size: 60px;" fill="#000" x="311" y="80" text-anchor="middle">{val}</text>';
+        OrgChart.templates.employee.scaleLessThen["0.3"].node = '<rect x="0" y="0" height="{h}" width="{w}" fill="#039BE5" stroke-width="8" stroke="#000" ></rect>';
+
+        OrgChart.templates.employee.scaleLessThen["0.3"].positionId = '';
+        OrgChart.templates.employee.scaleLessThen["0.3"].slotNumber = '';
+        OrgChart.templates.employee.scaleLessThen["0.3"].positionClass = '';
+        OrgChart.templates.employee.scaleLessThen["0.3"].current_projects = '';
+        OrgChart.templates.employee.scaleLessThen["0.3"].stalled_projects = '';
+        OrgChart.templates.employee.scaleLessThen["0.3"].completed_projects = '';
+        OrgChart.templates.employee.scaleLessThen["0.3"].counts = '';
+
+        OrgChart.templates.employee.scaleLessThen["0.3"].link = '<path stroke-linejoin="round" stroke="#000" stroke-width="6" fill="none" d="{rounded}" />'
+
+
+        OrgChart.templates.employee.scaleLessThen["0.6"] = Object.assign({}, OrgChart.templates.manager);
+        OrgChart.templates.employee.scaleLessThen["0.6"].title = '<text data-width="570" style="font-size: 30px;" fill="#000" x="311" y="40" text-anchor="middle">{val}</text>';
+        OrgChart.templates.employee.scaleLessThen["0.6"].name = '<text data-width="570"  style="font-size: 30px;font-weight: bold;" fill="#000" x="311" y="95" text-anchor="middle">{val}</text>';
+
+        OrgChart.templates.employee.scaleLessThen["0.6"].positionId = '';
+        OrgChart.templates.employee.scaleLessThen["0.6"].slotNumber = '';
+        OrgChart.templates.employee.scaleLessThen["0.6"].positionClass = '';
+        OrgChart.templates.employee.scaleLessThen["0.6"].current_projects = '';
+        OrgChart.templates.employee.scaleLessThen["0.6"].stalled_projects = '';
+        OrgChart.templates.employee.scaleLessThen["0.6"].completed_projects = '';
+
+        OrgChart.templates.employee.scaleLessThen["0.6"].counts = '';
+        OrgChart.templates.employee.scaleLessThen["0.6"].link = '<path stroke-linejoin="round" stroke="#000" stroke-width="4" fill="none" d="{rounded}" />';
+        OrgChart.templates.employee.scaleLessThen["0.6"].node = `<rect x="0" y="0" height="{h}" width="{w}" fill="#039BE5" stroke-width="5" stroke="#000" ></rect>
+        <line x1="0" x2="622" y1="56" y2="56" stroke="#000" stroke-width="2"></line>`;
+
+
+        let chart = new OrgChart(document.getElementById("tree"), {
+        enableSearch: false,
+        editForm: {
+            elements: [
+            { type: 'textbox', label: 'SLOT NO', binding: 'SLOT NO' },
+            { type: 'textbox', label: 'POSITION CLASS / STATUS (FOR BOX)', binding: 'POSITION CLASS / STATUS (FOR BOX)' },
+            { type: 'textbox', label: 'POSITION ID', binding: 'POSITION ID' },
+            { type: 'textbox', label: 'TITLE', binding: '2024 POSITION TITLE' },
+            { type: 'select', options: [{ value: 'FILLED', text: 'FILLED' }, { value: 'VACANT', text: 'VACANT' }], label: 'FILLED / VACANT', binding: 'FILLED / VACANT' },
+            { type: 'select', options: [{ value: 'Expat', text: 'Expat' }, { value: 'Local', text: 'Local' }], label: 'LOCAL / EXPAT', binding: 'LOCAL / EXPAT' },
+            ]
+        },
+        mouseScrool: OrgChart.action.scroll,
+        template: 'manager',
+        sticky: false,
+        enableAI: false,
+        enableDragDrop: false,
+        tags: {
+            employee: {
+            template: 'employee'
+            }
+        },
+        layoutGridColumns: 4,
+        scaleInitial: OrgChart.match.boundary,
+        layout: OrgChart.layout.treeRightOffset,
+        nodeBinding: {
+            id: "ID",
+            name: "NAME",
+            current_projects: "CurrentPROJECTS",
+            stalled_projects: "STALLEDPROJECTS",
+            completed_projects: "COMPLATEDPROJECTS",
+        }
+        });
+
+        chart.on('canvas-click', function (sender, args) {
+        sender.aiUI.hide();
+        sender.fit();
+        });
+
+        chart.on('exportstart', function (sender, args) {
+        args.styles += document.getElementById('myStyles').outerHTML;
+        });
+
+        chart.onNodeClick(function (args) {
+        this.centerInNodes([args.node], function () {
+            this.ripple(args.node.id);
+        });
+        return false;
+        });
+
+        chart.onField=function(args){if(args.field=="counts"){var counts={totalPositionsCount:0,vacantPostionsCount:0,expatriatePositionsCount:0,contractorPositionsCount:0};iterate(args.node,counts,this);args.value=`<text style="font-size:18px;" fill="#000" x="10" y="133" text-anchor="start">Position Count: ${counts.totalPositionsCount}</text><text style="font-size:18px;" fill="#000" x="612" y="133" text-anchor="end">Position Expat: ${counts.expatriatePositionsCount}</text><text style="font-size:18px;" fill="#000" x="10" y="155" text-anchor="start">Vacant: ${counts.vacantPostionsCount}</text><text style="font-size:18px;" fill="#000" x="612" y="155" text-anchor="end">Position CONTR: ${counts.contractorPositionsCount}</text>`}};
+
+        chart.on('node-layout', function (sender, args) {
+        if (args.pnode.childrenIds.length > 11) {
+            args.layout = OrgChart.layout.tree;
+        }
+        if (args.pnode.childrenIds.length > 15) {
+            args.layout = OrgChart.layout.tree;
+        }
+        });
+
+        chart.onUpdateNode(function (args) {
+        args.newData["SUPERVISOR"] = args.newData.pid;
+        args.newData["NAME"] = args.newData.id;
+        })
+
+        chart.onUpdated(function () {
+        var data = JSON.stringify(this.config.nodes);
+
+        for (var item of this.config.nodes) {
+            item["NAME"] = item.id;
+            item["SUPERVISOR"] = item.pid;
+        }
+        localStorage.setItem('data', data);
+        });
+
+        // ✅ اجعل الشجرة مطوية افتراضيًا
+        var loadedAndCollapsed = false;
+        chart.on('redraw', function(sender) {
+            if (!loadedAndCollapsed) {
+                sender.collapseAll();
+                loadedAndCollapsed = true;
+            }
+        });
+
+        var localData = localStorage.getItem('data');
+        if (localData) {
+        localData = JSON.parse(localData);
+        chart.load(localData);
+        }
+        else {
+        chart.load(convertToNodes(defaultData));
+        }
+    </script>
+{% endblock %}
