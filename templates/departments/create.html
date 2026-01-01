@@ -32,12 +32,12 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group row gutters">
-                        <label for="name" class="col-sm-3 col-form-label text-right">الإسم</label>
+                        <label for="name" class="col-sm-3 col-form-label text-right">إسم الإدارة</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <input type="text" class="form-control" id="name" name="name" value="{{ name }}"
-                                    placeholder="الإسم" required>
-                                <div class="invalid-feedback">الإسم مطلوب</div>
+                                    placeholder="إسم الإدارة" required>
+                                <div class="invalid-feedback">إسم الإدارة مطلوب</div>
                             </div>
                         </div>
                     </div>
@@ -76,45 +76,65 @@
         const container = document.getElementById('departments-container');
         const hiddenInput = document.getElementById('parent_id');
 
-        loadDepartments(null);
+        loadDepartments(null, 1);
 
-        function loadDepartments(parentId) {
-            let url = "{% url 'departments_by_parent' %}";
+        document.getElementById('agent_id').addEventListener('change', function(){
+            const parentId = hiddenInput.value || null;
+            const agentId = this.value;
+
+            container.innerHTML = '';
+            hiddenInput.value = null;
+            loadDepartments(parentId, agentId);
+        });
+        
+        function loadDepartments(parentId, agentId) {
+            let url = "{% url 'departments_by_agent' %}";
             if (parentId !== null) {
-                url += `?parent_id=${parentId}`;
+                const params = new URLSearchParams({
+                    parent_id: parentId,
+                    agent_id: agentId
+                });
+                url += `?${params.toString()}`;
+            }else{
+                url += `?agent_id=${agentId}`;
             }
 
             fetch(url)
                 .then(res => res.json())
                 .then(data => {
-                    if (data.length === 0) return;
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'input-group mb-3';
-
-                    const select = document.createElement('select');
-                    select.className = 'form-control form-control-lg';
-                    select.innerHTML = `<option value="">اختر القسم</option>`;
-
-                    data.forEach(dep => {
-                        const option = document.createElement('option');
-                        option.value = dep.id;
-                        option.textContent = dep.name;
-                        select.appendChild(option);
-                    });
-
-                    select.onchange = function () {
-                        while (wrapper.nextSibling) {
-                            wrapper.nextSibling.remove();
+                    if (data.length === 0){
+                        if (parentId === null) {
+                            container.innerHTML += '<div class="input-group"><p>لا يوجد بها إدارة ليتبعها</p></div>';
                         }
+                    }else{
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'input-group mb-3';
 
-                        if (this.value) {
-                            hiddenInput.value = this.value;
-                            loadDepartments(this.value);
-                        }
-                    };
+                        const select = document.createElement('select');
+                        select.className = 'form-control form-control-lg';
+                        select.innerHTML = `<option value="">اختر القسم</option>`;
 
-                    wrapper.appendChild(select);
-                    container.appendChild(wrapper);
+                        data.forEach(dep => {
+                            const option = document.createElement('option');
+                            option.value = dep.id;
+                            option.textContent = dep.name;
+                            select.appendChild(option);
+                        });
+
+                        select.onchange = function () {
+                            while (wrapper.nextSibling) {
+                                wrapper.nextSibling.remove();
+                            }
+
+                            if (this.value) {
+                                hiddenInput.value = this.value;
+                                loadDepartments(this.value, agentId);
+                            }
+                        };
+
+                        wrapper.appendChild(select);
+                        container.appendChild(wrapper);
+                    }
                 });
         }
     </script>

@@ -3,12 +3,10 @@ from django.db import connection
 from .models import Department
 from agents.models import Agent
 
-
 def table_exists(table_name):
     return table_name in connection.introspection.table_names()
 
-
-def create_initial_departments(sender, **kwargs):
+def create_initial_data(sender, **kwargs):
     if not table_exists("departments") or not table_exists("agents"):
         return
 

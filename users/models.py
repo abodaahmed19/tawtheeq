@@ -4,6 +4,8 @@ from .roles import Roles
 
 class User(AbstractUser):
     name = models.CharField("name", max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)  
 
     first_name = None
     last_name = None

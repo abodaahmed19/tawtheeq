@@ -50,6 +50,10 @@ INSTALLED_APPS = [
     'contract_transaction_requirements.apps.ContractTransactionRequirementsConfig',
     'contract_files.apps.ContractFilesConfig',
     'contract_transactions.apps.ContractTransactionsConfig',
+    'automated_documentation.apps.AutomatedDocumentationConfig',
+    'company_contacts.apps.CompanyContactsConfig',
+    'company_files.apps.CompanyFilesConfig',
+    'chats.apps.ChatsConfig',
 ]
 
 MIDDLEWARE = [

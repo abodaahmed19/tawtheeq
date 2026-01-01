@@ -9,7 +9,6 @@ def companies(request):
     companies = Company.objects.all()
     contractors = Company.objects.filter(type='contractor')
     consultants = Company.objects.filter(type='consultant')
-    
 
     return render(request, 'companies/index.html', {
         'companies': companies,
@@ -29,6 +28,7 @@ def companies_create(request):
     website = request.POST.get('website', '')
     address = request.POST.get('address', '')
     type = request.POST.get('type', '')
+    
     if request.method == 'POST':
         name = request.POST.get('name')
         cr_number = request.POST.get('cr_number') or None

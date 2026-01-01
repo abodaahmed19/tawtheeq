@@ -88,8 +88,9 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>الإسم</th>
+                                        <th>إسم الإدارة</th>
                                         <th>الجهة التابع لها</th>
+                                        <th>الوكالة</th>
                                         <th>التحكم</th>
                                     </tr>
                                 </thead>
@@ -99,6 +100,7 @@
                                         <td>{{ department.id }}</td>
                                         <td>{{ department.name }}</td>
                                         <td>{{ department.get_hierarchy }}</td>
+                                        <td>{{ department.agent.name }}</td>
                                         <td>
                                             <div class="td-actions">
                                                 <a href="#" class="icon green" data-toggle="tooltip"

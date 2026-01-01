@@ -98,7 +98,7 @@
                                 <td>{{ contract.number }}</td>
                                 <td>{{ contract.name }}</td>
                                 <td>{{ contract.department.name }}</td>
-                                <td>{{ contract.department.get_hierarchy }}</td>
+                                <td>{{ contract.department.get_hierarchy }} {% if contract.department.get_hierarchy != '' %} → {% endif %} {{ contract.department.agent.name}}</td>
                                 <td>{{ contract.amount|unlocalize }} ر.س</td>
                                 <td>{{ contract.company.name }}</td>
                                 <td>

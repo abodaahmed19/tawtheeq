@@ -1,10 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %} - تعديل المقاول أو الإستشاري{% endblock %}
+{% load l10n %}
+{% block title %} - تعديل معاملة العقد{% endblock %}
+
+{% block css %}
+    <!-- *************
+        ************ Vendor Css Files *************
+    ************ -->
+    <link rel="stylesheet" href="{% static 'site/vendor/bs-select/bs-select.css' %}">
+{% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item"><a href="{% url 'contracts' %}">المقاولون والإستشاريين</a></li>
-    <li class="breadcrumb-item active">تعديل المقاول أو الإستشاري</li>
+    <li class="breadcrumb-item"><a href="{% url 'contract_transactions' %}">معاملات العقود</a></li>
+    <li class="breadcrumb-item active">تعديل معاملة العقد</li>
 {% endblock %}
 {% block content %}
     <!-- Row start -->
@@ -15,99 +23,75 @@
                 {% csrf_token %}
                 <div class="card m-0">
                     <div class="card-header">
-                        <div class="card-title">تعديل المقاول أو الإستشاري</div>
-                        <div class="card-sub-title">{{ name }}</div>
+                        <div class="card-title">تعديل العقد</div>
+                        <div class="card-sub-title">{{ contract_transaction.contract.name }} ({{ contract_transaction.contract.number }})</div>
                     </div>
                     <div class="card-body">
                         <div class="form-group row gutters">
-                            <label for="name" class="col-sm-3 col-form-label text-right">الإسم</label>
+                            <label for="contract_id" class="col-sm-3 col-form-label text-right">العقد</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ name }}" placeholder="الإسم" required>
-                                    <div class="invalid-feedback">الإسم مطلوب</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row gutters">
-                            <label for="type" class="col-sm-3 col-form-label text-right">النوع</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <select class="form-control form-control-lg" id="type" name="type" required>
-                                        <option value="contractor" {% if type == 'contractor' %}selected{% endif %}>مقاول</option>
-                                        <option value="consultant" {% if type == 'consultant' %}selected{% endif %}>إستشاري</option>
+                                    <select class="form-control form-control-lg selectpicker" id="contract_id" name="contract_id" required data-live-search="true" title="اختر">
+                                        {% for contract in contracts %}
+                                            <option value="{{ contract.id }}" {% if contract_id == contract.id %}selected{% endif %}>{{ contract.name }} ({{ contract.number }})</option>
+                                        {% endfor %}
                                     </select>
-                                    <div class="invalid-feedback">النوع مطلوب</div>
+                                    <div class="invalid-feedback">العقد مطلوب</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group row gutters">
-                            <label for="cr_number" class="col-sm-3 col-form-label text-right">رقم السجل التجاري</label>
+                            <label for="type_id" class="col-sm-3 col-form-label text-right">نوع المعاملة</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="cr_number" name="cr_number" value="{{ cr_number|default_if_none:'' }}" placeholder="رقم السجل التجاري">
-                                    <div class="invalid-feedback">رقم السجل التجاري مطلوب</div>
+                                    <select class="form-control form-control-lg" id="type_id" name="type_id" required>
+                                        <option value="" {% if type_id == '' %}selected{% endif %} disabled>اختر</option>
+                                        {% for contract_transaction_type in contract_transaction_types %}
+                                            <option value="{{ contract_transaction_type.id }}" {% if type_id == contract_transaction_type.id %}selected{% endif %}>{{ contract_transaction_type.name }}</option>
+                                        {%endfor %}
+                                    </select>
+                                    <div class="invalid-feedback">نوع المعاملة مطلوب</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group row gutters">
-                            <label for="cr_expiry" class="col-sm-3 col-form-label text-right">إنتهاء السجل التجاري</label>
+                            <label for="date" class="col-sm-3 col-form-label text-right">تاريخ المعاملة</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="date" class="form-control" id="cr_expiry" name="cr_expiry" value="{{ cr_expiry|date:'Y-m-d' }}" placeholder="إنتهاء السجل التجاري">
-                                    <div class="invalid-feedback">إنتهاء السجل التجاري مطلوب</div>
+                                    <input type="date" class="form-control" id="date" name="date" value="{{ date|date:'Y-m-d' }}" placeholder="تاريخ المعاملة" required>
+                                    <div class="invalid-feedback">تاريخ المعاملة مطلوب</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group row gutters">
-                            <label for="phone" class="col-sm-3 col-form-label text-right">الهاتف</label>
+                            <label for="incoming_number" class="col-sm-3 col-form-label text-right">رقم الوارد</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="phone" name="phone" value="{{ phone|default_if_none:'' }}" placeholder="الهاتف">
-                                    <div class="invalid-feedback">الهاتف مطلوب</div>
+                                    <input type="number" class="form-control" id="incoming_number" name="incoming_number" value="{{ incoming_number|default_if_none:'' }}" placeholder="رقم الوارد">
+                                    <div class="invalid-feedback">رقم الوارد مطلوب</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group row gutters">
-                            <label for="mobile" class="col-sm-3 col-form-label text-right">الجوال</label>
+                            <label for="extract_number" class="col-sm-3 col-form-label text-right">رقم المستخلص</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="mobile" name="mobile" value="{{ mobile|default_if_none:'' }}" placeholder="الجوال">
-                                    <div class="invalid-feedback">الجوال مطلوب</div>
+                                    <input type="number" class="form-control" id="extract_number" name="extract_number" value="{{ extract_number|default_if_none:'' }}" placeholder="رقم المستخلص">
+                                    <div class="invalid-feedback">رقم المستخلص مطلوب</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group row gutters">
-                            <label for="email" class="col-sm-3 col-form-label text-right">البريد الإلكتروني</label>
+                            <label for="subject" class="col-sm-3 col-form-label text-right">الموضوع</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="email" class="form-control" id="email" name="email" value="{{ email|default_if_none:'' }}" placeholder="البريد الإلكتروني">
-                                    <div class="invalid-feedback">البريد الإلكتروني مطلوب</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row gutters">
-                            <label for="website" class="col-sm-3 col-form-label text-right">الموقع الإلكتروني</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="website" name="website" value="{{ website|default_if_none:'' }}" placeholder="الموقع الإلكتروني">
-                                    <div class="invalid-feedback">الموقع الإلكتروني مطلوب</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row gutters">
-                            <label for="address" class="col-sm-3 col-form-label text-right">العنوان</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <textarea class="form-control" id="address" name="address" placeholder="العنوان">{{ address|default_if_none:'' }}</textarea>
-                                    <div class="invalid-feedback">العنوان مطلوب</div>
+                                    <textarea class="form-control" id="subject" name="subject" placeholder="الموضوع">{{ subject|default_if_none:'' }}</textarea>
+                                    <div class="invalid-feedback">الموضوع مطلوب</div>
                                 </div>
                             </div>
                         </div>
@@ -119,4 +103,8 @@
         </div>
     </div>
     <!-- Row end -->
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'site/vendor/bs-select/bs-select.min.js' %}"></script>
 {% endblock %}

@@ -45,10 +45,6 @@ $(document).ready(function(){
 	});
 });
 
-
-
-
-
 // Todays Date
 $(function() {
 	var interval = setInterval(function() {

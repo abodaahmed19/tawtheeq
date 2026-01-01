@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load l10n %}
 {% block title %} - إضافة عقد{% endblock %}
 
 {% block css %}
@@ -61,7 +62,7 @@
                             <label for="amount" class="col-sm-3 col-form-label text-right">قيمة العقد</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="amount" name="amount" value="{{ amount }}" step=".01" placeholder="قيمة العقد" required>
+                                    <input type="number" class="form-control" id="amount" name="amount" value="{{ amount|unlocalize }}" step=".01" placeholder="قيمة العقد" required>
                                     <div class="invalid-feedback">قيمة العقد مطلوب</div>
                                 </div>
                             </div>
@@ -170,7 +171,11 @@
                     data.forEach(dep => {
                         const option = document.createElement('option');
                         option.value = dep.id;
-                        option.textContent = dep.name;
+                        if (parentId === null) {
+                            option.textContent = `${dep.name} (${dep.agent__name})`;
+                        }else{
+                            option.textContent = dep.name;
+                        }
                         select.appendChild(option);
                     });
 

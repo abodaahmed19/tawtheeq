@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load static %}
+{% load translate %}
+
+{% block title %}المراسلات{% endblock %}
+
+{% block css %}
+    <!-- *************
+        ************ Vendor Css Files *************
+    ************ -->
+    <!-- DateRange css -->
+    <link rel="stylesheet" href="{% static 'site/vendor/daterange/daterange.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <!-- Row start -->
+    <div class="row gutters">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="chat-section">
+                <!-- Row start -->
+                <div class="row no-gutters">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-2 col-3">
+                        <div class="users-container">
+                            <div class="chat-search-box">
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="Search" />
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-primary">
+                                            <i class="icon-magnifying-glass"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="usersContainerScroll">
+                                <ul class="users" id="usersList">
+                                    {% for user in users %}
+                                        <li class="person" data-user-id="{{ user.id }}" data-name="{{ user.name }}">
+                                            <div class="user">
+                                                <img src="{% static 'site/img/user.png' %}" alt="" />
+                                                <span class="status online"></span>
+                                            </div>
+                                            <p class="name-time">
+                                                <span class="name">{{ user.name }}</span>
+                                                <span class="time">{{ user.role|ar }}</span>
+                                            </p>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-8 col-sm-10 col-9">
+                        <div class="active-user-chatting d-none">
+                            <div class="active-user-info">
+                                <img src="{% static 'site/img/user.png' %}" class="avatar" alt="" />
+                                <div class="avatar-info">
+                                    <h5 id="name-chat"></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-container">
+                            <div class="chatContainerScroll">
+                                <ul class="chat-box" id="chatBox"></ul>
+                            </div>
+                            <div class="chat-form d-none">
+                                <div class="form-group">
+                                    <textarea class="form-control" id="chatInput" placeholder="اكتب رسالتك هنا..."></textarea>
+                                    <button class="btn btn-primary" id="sendBtn">
+                                        <i class="icon-send"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Row end -->
+            </div>
+        </div>
+    </div>
+    <!-- Row end -->
+{% endblock %}
+
+{% block js %}
+    <!-- *************
+        ************ Vendor Js Files *************
+    ************* -->
+    <!-- Slimscroll JS -->
+    <script src="{% static 'site/vendor/slimscroll/slimscroll.min.js' %}"></script>
+    <script src="{% static 'site/vendor/slimscroll/custom-scrollbar.js' %}"></script>
+
+    <!-- Daterange -->
+    <script src="{% static 'site/vendor/daterange/daterange.js' %}"></script>
+    <script src="{% static 'site/vendor/daterange/custom-daterange.js' %}"></script>
+    <script>
+        let currentUserId = {{ request.user.id }};
+        let currentReceiverId = null;
+        let lastMessageId = 0;
+
+        document.querySelectorAll("#usersList li").forEach(li => {
+            li.addEventListener("click", () => {
+                currentReceiverId = li.dataset.userId;
+                lastMessageId = 0;
+                document.getElementById("chatBox").innerHTML = "";
+
+                document.querySelectorAll("#usersList li").forEach(el => el.classList.remove("active"));
+                li.classList.add("active");
+
+                document.getElementsByClassName("active-user-chatting")[0].classList.remove("d-none");
+                document.getElementsByClassName("chat-form")[0].classList.remove("d-none");
+                document.getElementById("name-chat").textContent = li.getAttribute("data-name");
+
+                loadMessages();
+            });
+        });
+
+        function loadMessages() {
+            if (!currentReceiverId) return;
+
+            fetch(`/chats/poll/?receiver_id=${currentReceiverId}&last_id=${lastMessageId}`)
+                .then(r => r.json())
+                .then(data => {
+                    const chatBox = document.getElementById("chatBox");
+                    const chatContainer = document.querySelector(".chatContainerScroll");
+
+                    data.messages.forEach(m => {
+                        const li = document.createElement("li");
+                        if (m.sender_id == currentUserId) {
+                            li.className = "chat-right";
+                            li.innerHTML = `
+                                <div class="chat-text">
+                                    <p>${m.message}</p>
+                                    <div class="chat-hour">${m.time} <span class="icon-done_all"></span></div>
+                                </div>
+                                <div class="chat-avatar">
+                                    <img src="{% static 'site/img/user.png' %}" alt="${m.sender}" />
+                                    <div class="chat-name">${m.sender}</div>
+                                </div>
+                            `;
+                        } else {
+                            li.className = "chat-left";
+                            li.innerHTML = `
+                                <div class="chat-avatar">
+                                    <img src="{% static 'site/img/user.png' %}" alt="${m.sender}" />
+                                    <div class="chat-name">${m.sender}</div>
+                                </div>
+                                <div class="chat-text">
+                                    <p>${m.message}</p>
+                                    <div class="chat-hour">${m.time}</div>
+                                </div>
+                            `;
+                        }
+                        chatBox.appendChild(li);
+                        lastMessageId = m.id;
+                    });
+
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                });
+        }
+
+        document.getElementById("sendBtn").addEventListener("click", () => {
+            const input = document.getElementById("chatInput");
+            if (!input.value || !currentReceiverId) return;
+
+            fetch("/chats/send/", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    receiver_id: currentReceiverId,
+                    content: input.value
+                })
+            }).then(r => r.json())
+            .then(data => {
+                if(data.status === "ok"){
+                    input.value = "";
+                    loadMessages();
+                }
+            });
+        });
+
+        setInterval(loadMessages, 2000);
+    </script>
+{% endblock %}

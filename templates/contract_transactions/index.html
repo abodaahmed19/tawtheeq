@@ -94,9 +94,9 @@
                             <tr>
                                 <td>{{ contract_transaction.id }}</td>
                                 <td>{{ contract_transaction.date }}</td>
-                                <td>{{ contract_transaction.contracts.number }}</td>
-                                <td>{{ contract_transaction.contracts.name }}</td>
-                                <td>{{ contract_transaction.contract_transaction_types.get_hierarchy }}</td>
+                                <td>{{ contract_transaction.contract.number }}</td>
+                                <td>{{ contract_transaction.contract.name }}</td>
+                                <td>{{ contract_transaction.type.name }}</td>
                                 <td>
                                     <div class="td-actions">
                                         <a href="#" class="icon green" data-toggle="tooltip" data-placement="top" title=""

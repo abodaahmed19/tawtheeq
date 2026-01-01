@@ -1,22 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %} - إضافة عقد{% endblock %}
+{% block title %} - إضافة معاملة عقد{% endblock %}
 
 {% block css %}
     <!-- *************
         ************ Vendor Css Files *************
     ************ -->
     <link rel="stylesheet" href="{% static 'site/vendor/bs-select/bs-select.css' %}">
-    <style>
-        #departments-container .mb-3:last-child{
-            margin: 0 !important;
-        }
-    </style>
 {% endblock %}
 
 {% block breadcrumb %}
-    <li class="breadcrumb-item"><a href="{% url 'contract_transactions' %}">العقود</a></li>
-    <li class="breadcrumb-item active">إضافة عقد</li>
+    <li class="breadcrumb-item"><a href="{% url 'contract_transactions' %}">معاملات العقود</a></li>
+    <li class="breadcrumb-item active">إضافة معاملة عقد</li>
 {% endblock %}
 {% block content %}
     <!-- Row start -->
@@ -27,104 +22,75 @@
                 {% csrf_token %}
                 <div class="card m-0">
                     <div class="card-header">
-                        <div class="card-title">عقد جديد</div>
-                        <div class="card-sub-title">إنشاء عقد جديد</div>
+                        <div class="card-title">معاملة عقد جديدة</div>
+                        <div class="card-sub-title">إنشاء معاملة عقد جديدة</div>
                     </div>
                     <div class="card-body">
                         <div class="form-group row gutters">
-                            <label for="number" class="col-sm-3 col-form-label text-right">رقم العقد</label>
+                            <label for="contract_id" class="col-sm-3 col-form-label text-right">العقد</label>
                             <div class="col-sm-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="number" name="number" value="{{ number }}" oninput="this.value = this.value.replace(/[^0-9-]/g, '')" placeholder="رقم العقد" required>
-                                    <div class="invalid-feedback">رقم العقد مطلوب</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row gutters">
-                            <label for="name" class="col-sm-3 col-form-label text-right">مسمى العقد</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ name }}" placeholder="مسمى العقد" required>
-                                    <div class="invalid-feedback">رقم العقد مطلوب</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row gutters">
-                            <label for="name" class="col-sm-3 col-form-label text-right">الإدارة</label>
-                            <div class="col-sm-9" id="departments-container"></div>
-                            <input type="hidden" name="department_id" id="department_id">
-                        </div>
-
-                        <div class="form-group row gutters">
-                            <label for="amount" class="col-sm-3 col-form-label text-right">قيمة العقد</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="amount" name="amount" value="{{ amount }}" step=".01" placeholder="قيمة العقد" required>
-                                    <div class="invalid-feedback">قيمة العقد مطلوب</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row gutters">
-                            <label for="signing_date" class="col-sm-3 col-form-label text-right">تاريخ توقيع العقد</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="date" class="form-control" id="signing_date" name="signing_date" value="{{ signing_date|date:'Y-m-d' }}" placeholder="تاريخ توقيع العقد" required>
-                                    <div class="invalid-feedback">تاريخ توقيع العقد مطلوب</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row gutters">
-                            <label for="site_handover_date" class="col-sm-3 col-form-label text-right">تاريخ تسليم الموقع</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="date" class="form-control" id="site_handover_date" name="site_handover_date" value="{{ site_handover_date|date:'Y-m-d' }}" placeholder="تاريخ تسليم الموقع">
-                                    <div class="invalid-feedback">تاريخ تسليم الموقع مطلوب</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row gutters">
-                            <label for="actual_start_date" class="col-sm-3 col-form-label text-right">تاريخ البدء الفعلي</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="date" class="form-control" id="actual_start_date" name="actual_start_date" value="{{ actual_start_date|date:'Y-m-d' }}" placeholder="تاريخ البدء الفعلي">
-                                    <div class="invalid-feedback">تاريخ البدء الفعلي مطلوب</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row gutters">
-                            <label for="duration" class="col-sm-3 col-form-label text-right">المدة</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="number" class="form-control" id="duration" name="duration" value="{{ duration }}" placeholder="المدة" aria-describedby="durationHelpBlock" required>
-                                    <small id="durationHelpBlock" class="form-text text-muted mr-1">بالأيام</small>
-                                    <div class="invalid-feedback">المدة مطلوبة</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row gutters">
-                            <label for="company_id" class="col-sm-3 col-form-label text-right">المقاول أو الإستشاري</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <select class="form-control form-control-lg selectpicker" id="company_id" name="company_id" required data-live-search="true" title="اختر">
-                                        <optgroup label="مقاول">
-                                            {% for contract_transactions in contract_transactions %}
-                                            <option value="{{ contractor.id }}" {% if company_id == contractor.id %}selected{% endif %}>{{contractor.name }}</option>
-                                            {% endfor %}
-                                        </optgroup>
-                                        <optgroup label="إستشاري">
-                                            {% for consultant in consultants %}
-                                            <option value="{{ consultant.id }}" {% if company_id == consultant.id %}selected{% endif %}>{{consultant.name }}</option>
-                                            {% endfor %}
-                                        </optgroup>
+                                    <select class="form-control form-control-lg selectpicker" id="contract_id" name="contract_id" required data-live-search="true" title="اختر">
+                                        {% for contract in contracts %}
+                                            <option value="{{ contract.id }}" {% if contract_id == contract.id %}selected{% endif %}>{{ contract.name }} ({{ contract.number }})</option>
+                                        {% endfor %}
                                     </select>
-                                    <div class="invalid-feedback">المقاول أو الإستشاري مطلوب</div>
+                                    <div class="invalid-feedback">العقد مطلوب</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row gutters">
+                            <label for="type_id" class="col-sm-3 col-form-label text-right">نوع المعاملة</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <select class="form-control form-control-lg" id="type_id" name="type_id" required>
+                                        <option value="" {% if type_id == '' %}selected{% endif %} disabled>اختر</option>
+                                        {% for contract_transaction_type in contract_transaction_types %}
+                                            <option value="{{ contract_transaction_type.id }}" {% if type_id == contract_transaction_type.id %}selected{% endif %}>{{ contract_transaction_type.name }}</option>
+                                        {%endfor %}
+                                    </select>
+                                    <div class="invalid-feedback">نوع المعاملة مطلوب</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row gutters">
+                            <label for="date" class="col-sm-3 col-form-label text-right">تاريخ المعاملة</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="date" name="date" value="{{ date|date:'Y-m-d' }}" placeholder="تاريخ المعاملة" required>
+                                    <div class="invalid-feedback">تاريخ المعاملة مطلوب</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row gutters">
+                            <label for="incoming_number" class="col-sm-3 col-form-label text-right">رقم الوارد</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="incoming_number" name="incoming_number" value="{{ incoming_number }}" placeholder="رقم الوارد">
+                                    <div class="invalid-feedback">رقم الوارد مطلوب</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row gutters">
+                            <label for="extract_number" class="col-sm-3 col-form-label text-right">رقم المستخلص</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="extract_number" name="extract_number" value="{{ extract_number }}" placeholder="رقم المستخلص">
+                                    <div class="invalid-feedback">رقم المستخلص مطلوب</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row gutters">
+                            <label for="subject" class="col-sm-3 col-form-label text-right">الموضوع</label>
+                            <div class="col-sm-9">
+                                <div class="input-group">
+                                    <textarea class="form-control" id="subject" name="subject" placeholder="الموضوع">{{ subject }}</textarea>
+                                    <div class="invalid-feedback">الموضوع مطلوب</div>
                                 </div>
                             </div>
                         </div>
@@ -140,54 +106,4 @@
 
 {% block js %}
     <script src="{% static 'site/vendor/bs-select/bs-select.min.js' %}"></script>
-    <script>
-        const container = document.getElementById('departments-container');
-        const hiddenInput = document.getElementById('department_id');
-
-        loadDepartments(null);
-
-        function loadDepartments(parentId) {
-            let url = "{% url 'departments_by_parent' %}";
-            if (parentId !== null) {
-                url += `?parent_id=${parentId}`;
-            }
-
-            fetch(url)
-                .then(res => res.json())
-                .then(data => {
-                    if (data.length === 0) return;
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'input-group mb-3';
-
-                    const select = document.createElement('select');
-
-                    if (parentId === null) {
-                        select.required = true;
-                    }
-                    select.className = 'form-control form-control-lg';
-                    select.innerHTML = `<option value="">اختر الإدارة</option>`;
-
-                    data.forEach(dep => {
-                        const option = document.createElement('option');
-                        option.value = dep.id;
-                        option.textContent = dep.name;
-                        select.appendChild(option);
-                    });
-
-                    select.onchange = function () {
-                        while (wrapper.nextSibling) {
-                            wrapper.nextSibling.remove();
-                        }
-
-                        if (this.value) {
-                            hiddenInput.value = this.value;
-                            loadDepartments(this.value);
-                        }
-                    };
-
-                    wrapper.appendChild(select);
-                    container.appendChild(wrapper);
-                });
-        }
-    </script>
 {% endblock %}

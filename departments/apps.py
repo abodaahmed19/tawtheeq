@@ -6,5 +6,5 @@ class DepartmentsConfig(AppConfig):
     name = 'departments'
 
     def ready(self):
-        from .signals import create_initial_departments
-        post_migrate.connect(create_initial_departments, sender=self)
+        from .signals import create_initial_data
+        post_migrate.connect(create_initial_data, sender=self)

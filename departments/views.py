@@ -43,25 +43,46 @@ def departments_create(request):
 # Edit Department
 @role_required('admin')
 def departments_edit(request, department_id):
+    agents = Agent.objects.all()
     department = get_object_or_404(Department, id=department_id)
 
     name = department.name
+    agent_id = department.agent_id
 
     if request.method == 'POST':
         name = request.POST.get('name', '').strip()
+        agent_id = request.POST.get('agent_id', '').strip()
+        parent_id = request.POST.get('parent_id', '').strip()
 
         department.name = name
+        department.agent_id = agent_id
+        department.parent_id = parent_id
         department.save()
 
         messages.success(request, f"تم تعديل الإدارة {department.name} بنجاح")
         return redirect('departments')
 
     return render(request, 'departments/edit.html', {
+        'agents': agents,
         'department': department,
         'name': name,
+        'agent_id': agent_id
     })
 
-# Get Department By Id
+# Get Department By Agent
+def departments_by_agent(request):
+    parent_id = request.GET.get('parent_id')
+    agent_id = request.GET.get('agent_id')
+
+    if parent_id:
+        departments = Department.objects.filter(parent_id=parent_id, agent_id=agent_id)
+    else:
+        departments = Department.objects.filter(parent__isnull=True, agent_id=agent_id)
+
+    data = departments.values('id', 'name')
+    return JsonResponse(list(data), safe=False)
+    
+# Get Department By Parent
 def departments_by_parent(request):
     parent_id = request.GET.get('parent_id')
 
@@ -70,5 +91,5 @@ def departments_by_parent(request):
     else:
         departments = Department.objects.filter(parent__isnull=True)
 
-    data = departments.values('id', 'name')
+    data = departments.values('id', 'name', 'agent__name')
     return JsonResponse(list(data), safe=False)
